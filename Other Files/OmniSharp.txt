@@ -1,0 +1,36 @@
+Updated VS Code Setup for Unity
+
+    Install .NET SDK:
+        Download and install .NET SDK 6.0 or later from https://dotnet.microsoft.com/download
+    Set up VS Code:
+        Install VS Code if you haven't already
+        Install the C# extension by Microsoft
+        Install the Unity extension by Visual Studio Code
+    Configure Unity:
+        In Unity, go to Edit > Preferences > External Tools
+        Set "External Script Editor" to Visual Studio Code
+        Ensure "Editor Attaching" is checked
+    Generate project files:
+        In Unity, go to Assets > Open C# Project
+        This should generate the necessary .csproj files
+    Open in VS Code:
+        Use File > Open Folder in VS Code
+        Select the root folder of your Unity project (the one containing the Assets folder)
+    OmniSharp configuration:
+        Create a file named omnisharp.json in your project's root folder
+        Add the following content:
+
+    json
+
+    {
+      "msbuild": {
+        "useBundledOnly": true
+      },
+      "RoslynExtensionsOptions": {
+        "enableAnalyzersSupport": true
+      }
+    }
+
+    Restart VS Code
+
+After completing these steps, close and reopen VS Code. You should now see the OmniSharp flame icon in the bottom right corner when you open a C# file.

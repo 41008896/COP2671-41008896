@@ -1,0 +1,8 @@
+{
+    "msbuild": {
+      "useBundledOnly": true
+    },
+    "RoslynExtensionsOptions": {
+      "enableAnalyzersSupport": true
+    }
+  }
