@@ -76,6 +76,8 @@ void MovePlayer()
             // Set player position to forward bounds
             player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, verticalBounds);
         }
+
+        
 }
 
     void FireProjectile()
