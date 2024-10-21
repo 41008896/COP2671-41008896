@@ -7,6 +7,10 @@ TagManager:
   - Note
   - LineArea
   - Trigger
+  - Pause
+  - Stop
+  - StartMenu
+  - Game
   layers:
   - Default
   - TransparentFX
