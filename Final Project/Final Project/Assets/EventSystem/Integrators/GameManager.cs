@@ -1,54 +1,41 @@
 using RhythmGameStarter;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public enum GameState { Menu, Playing, Paused, Ended }
     public GameState currentState = GameState.Menu;
 
-    // Cached references to UI components and game elements - initialized in Awake
-    private Button pauseButton;
-    private Button stopButton;
+    private Dictionary<string, GameObject> uiElements = new Dictionary<string, GameObject>();
+
+    private GameObject ui;
     private GameObject startMenu;
     private SongManager songManager;
 
+    // Cached references to frequently used UI elements
+    private Button pauseButton;
+    private Button stopButton;
+    private Button resumeButton;
+    private TextMeshProUGUI scoreText;
+    private TextMeshProUGUI songPercentageText;
+    private Animator songPercentageAnimator;
+
     private void Awake()
     {
-        // Cache references to UI components and game elements here
-        startMenu = GameObject.FindWithTag("StartMenu");
-        if (startMenu == null)
+        // Cache the UI GameObject
+        ui = GameObject.FindWithTag("UI");
+        if (ui == null)
         {
-            Debug.LogError("StartMenu GameObject with tag 'StartMenu' not found.");
+            Debug.LogError("UI GameObject with tag 'UI' not found.");
+            return;
         }
 
-        GameObject pauseObj = GameObject.FindWithTag("Pause");
-        if (pauseObj != null)
-        {
-            pauseButton = pauseObj.GetComponent<Button>();
-            if (pauseButton == null)
-            {
-                Debug.LogError("Pause GameObject found, but no Button component attached.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Pause GameObject with tag 'Pause' not found.");
-        }
-
-        GameObject stopObj = GameObject.FindWithTag("Stop");
-        if (stopObj != null)
-        {
-            stopButton = stopObj.GetComponent<Button>();
-            if (stopButton == null)
-            {
-                Debug.LogError("Stop GameObject found, but no Button component attached.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Stop GameObject with tag 'Stop' not found.");
-        }
+        // Find and cache all components within the UI object by name
+        CacheUIComponents();
+        RegisterUIComponents();
 
         GameObject songManagerObj = GameObject.FindWithTag("Game");
         if (songManagerObj != null)
@@ -65,7 +52,48 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Called when start game event is raised
+    private void CacheUIComponents()
+    {
+        Transform[] allUIComponents = ui.GetComponentsInChildren<Transform>(true); // Include inactive objects
+        foreach (Transform component in allUIComponents)
+        {
+            uiElements[component.name] = component.gameObject; // Cache every GameObject by its name
+            Debug.Log("Cached UI Element: " + component.name);
+        }
+    }
+
+    private void RegisterUIComponents()
+    {
+        // Assign frequently used UI elements to class-level variables
+        if (!uiElements.TryGetValue("StartMenu", out startMenu))
+            Debug.LogError("StartMenu GameObject not found in cached UI elements.");
+
+        if (uiElements.TryGetValue("Pause", out GameObject pauseObj))
+            pauseButton = pauseObj.GetComponent<Button>();
+
+        if (uiElements.TryGetValue("Stop", out GameObject stopObj))
+            stopButton = stopObj.GetComponent<Button>();
+
+        if (uiElements.TryGetValue("Resume", out GameObject resumeObj))
+            resumeButton = resumeObj.GetComponent<Button>();
+
+        if (uiElements.TryGetValue("Score", out GameObject scoreObj))
+            scoreText = scoreObj.GetComponent<TMPro.TextMeshProUGUI>();
+
+        if (uiElements.TryGetValue("Song Precentage", out GameObject songPercentageObj)) // Keeping the typo as requested
+        {
+            songPercentageText = songPercentageObj.GetComponent<TMPro.TextMeshProUGUI>();
+            songPercentageAnimator = songPercentageObj.GetComponent<Animator>();
+        }
+
+        // Log errors if any critical UI element is missing
+        if (pauseButton == null || stopButton == null || resumeButton == null ||
+            scoreText == null || songPercentageText == null)
+        {
+            Debug.LogError("One or more required UI elements are missing or incorrectly set in the hierarchy.");
+        }
+    }
+
     public void OnGameStart()
     {
         if (currentState == GameState.Menu)
@@ -74,71 +102,80 @@ public class GameManager : MonoBehaviour
             Debug.Log("GameManager: Game state changed to Playing");
 
             // Enable Pause and Stop buttons
-            if (pauseButton != null)
-            {
-                pauseButton.interactable = true;
-                Debug.Log("Pause button set to interactable.");
-            }
-            else
-            {
-                Debug.LogError("Pause button is null in OnGameStart.");
-            }
-
-            if (stopButton != null)
-            {
-                stopButton.interactable = true;
-                Debug.Log("Stop button set to interactable.");
-            }
-            else
-            {
-                Debug.LogError("Stop button is null in OnGameStart.");
-            }
+            pauseButton.interactable = true;
+            stopButton.interactable = true;
+            Debug.Log("Pause and Stop buttons set to interactable.");
 
             // Hide Start Menu
-            if (startMenu != null)
-            {
-                startMenu.SetActive(false);
-                Debug.Log("Start menu set to inactive.");
-            }
-            else
-            {
-                Debug.LogError("Start menu is null in OnGameStart.");
-            }
+            startMenu?.SetActive(false);
+            Debug.Log("Start menu set to inactive.");
 
             // Play the song using SongManager
-            if (songManager != null)
-            {
-                songManager.PlaySong();
-                Debug.Log("SongManager: PlaySong() called.");
-            }
-            else
-            {
-                Debug.LogError("SongManager is null in OnGameStart.");
-            }
-
-            Debug.Log("Play sequence completed.");
+            songManager?.PlaySong();
+            Debug.Log("SongManager: PlaySong() called.");
         }
     }
 
-    // Called when pause game event is raised
     public void OnGamePause()
     {
         if (currentState == GameState.Playing)
         {
             currentState = GameState.Paused;
             Debug.Log("GameManager: Game state changed to Paused");
-            // Additional logic to pause the game, like disabling player movement
+
+            // Toggle Resume and Pause button visibility
+            resumeButton.gameObject.SetActive(true);
+            pauseButton.gameObject.SetActive(false);
+
+            // Pause the song
+            songManager?.PauseSong();
+            Debug.Log("SongManager: PauseSong() called.");
         }
     }
 
-    // Called when end game event is raised
-    public void OnGameEnd()
+    public void OnGameResume()
     {
-        if (currentState == GameState.Playing || currentState == GameState.Paused)
+        if (currentState == GameState.Paused)
         {
-            currentState = GameState.Ended;
-            Debug.Log("GameManager: Game state changed to Ended");
-            // Additional logic to end the game, like showing game over UI
+            currentState = GameState.Playing;
+            Debug.Log("GameManager: Game state changed to Playing");
+
+            // Toggle Pause and Resume button visibility
+            pauseButton.gameObject.SetActive(true);
+            resumeButton.gameObject.SetActive(false);
+
+            // Resume the song
+            songManager?.ResumeSong();
+            Debug.Log("SongManager: ResumeSong() called.");
         }
+    }
+
+    public void OnGameStop()
+    {
+        // Toggle button visibility
+        pauseButton.gameObject.SetActive(false);
+        resumeButton.gameObject.SetActive(true);
+
+        // Disable interactivity on Stop and Pause buttons
+        stopButton.interactable = false;
+        pauseButton.interactable = false;
+
+        // Reset Score and Song Percentage text
+        scoreText.text = "0000";
+        songPercentageText.text = "0%";
+
+        // Reset Animator Trigger on Song Percentage if needed
+        songPercentageAnimator?.SetTrigger("Reset");
+
+        // Show Start Menu
+        startMenu?.SetActive(true);
+
+        // Stop the song
+        songManager?.StopSong();
+        Debug.Log("SongManager: StopSong() called.");
+
+        // Set game state to Ended
+        currentState = GameState.Ended;
+        Debug.Log("GameManager: Game state changed to Ended");
     }
 }

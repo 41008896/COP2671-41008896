@@ -11,6 +11,11 @@ TagManager:
   - Stop
   - StartMenu
   - Game
+  - Resume
+  - Score
+  - Result
+  - UI
+  - Percent
   layers:
   - Default
   - TransparentFX

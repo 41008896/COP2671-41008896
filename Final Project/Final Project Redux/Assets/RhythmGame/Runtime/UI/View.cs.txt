@@ -1,0 +1,112 @@
+﻿using UnityEngine;
+using UnityEngine.Events;
+using System.Collections;
+
+namespace RhythmGameStarter
+{
+    [RequireComponent(typeof(CanvasGroup))]
+    public class View : MonoBehaviour
+    {
+        public bool hideOnStart = true;
+        public bool resetPosition = true;
+        public float transitionTime = 0.5f;
+        public bool pauseGameWhenVisible;
+
+        private CanvasGroup canvasGroup;
+        private Coroutine fadeCoroutine;
+
+        [Title("Events"), CollapsedEvent]
+        public UnityEvent onShow;
+        [CollapsedEvent]
+        public UnityEvent onHide;
+
+        //private bool isHidden;
+
+        private void Awake()
+        {
+            canvasGroup = GetComponent<CanvasGroup>();
+
+            if (resetPosition)
+            {
+                transform.localPosition = Vector3.zero;
+            }
+        }
+
+        private void Start()
+        {
+            if (hideOnStart)
+            {
+                InstantHide();
+            }
+        }
+
+        public void Show()
+        {
+            //isHidden = false;
+
+            // Stop any ongoing fade
+            if (fadeCoroutine != null)
+                StopCoroutine(fadeCoroutine);
+
+            // Start fading in
+            fadeCoroutine = StartCoroutine(Fade(1, () =>
+            {
+                onShow.Invoke();
+                if (pauseGameWhenVisible)
+                {
+                    Time.timeScale = 0;
+                }
+            }));
+        }
+
+        public void Hide()
+        {
+            //isHidden = true;
+
+            // Stop any ongoing fade
+            if (fadeCoroutine != null)
+                StopCoroutine(fadeCoroutine);
+
+            // Start fading out
+            fadeCoroutine = StartCoroutine(Fade(0, () =>
+            {
+                onHide.Invoke();
+                if (pauseGameWhenVisible)
+                {
+                    Time.timeScale = 1;
+                }
+                gameObject.SetActive(false);
+            }));
+        }
+
+        public void InstantHide()
+        {
+            //isHidden = true;
+
+            // Ensure immediate state
+            if (fadeCoroutine != null)
+                StopCoroutine(fadeCoroutine);
+
+            canvasGroup.alpha = 0;
+            gameObject.SetActive(false);
+
+            onHide.Invoke();
+
+            if (pauseGameWhenVisible)
+            {
+                Time.timeScale = 1;
+            }
+        }
+
+        private IEnumerator Fade(float targetAlpha, UnityAction onComplete)
+        {
+            while (!Mathf.Approximately(canvasGroup.alpha, targetAlpha))
+            {
+                canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, targetAlpha, Time.unscaledDeltaTime / transitionTime);
+                yield return null;
+            }
+
+            onComplete?.Invoke();
+        }
+    }
+}

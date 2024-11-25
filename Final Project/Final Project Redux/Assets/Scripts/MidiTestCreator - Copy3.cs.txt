@@ -1,0 +1,216 @@
+using UnityEngine;
+using UnityEditor;
+using MidiPlayerTK;
+using System.IO;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace RhythmGameStarter
+{
+    public class MidiTestCreatorWindow : EditorWindow
+    {
+        private Vector2 scrollPosition;
+        private string[] midiFiles;
+        private int selectedMidiIndex = -1;
+        private SongItem.NoteName selectedRootNote = SongItem.NoteName.C;
+        private int selectedTrack = 0;
+        private string authorName = "Test Author";
+        private int difficulty = 2;
+        private MidiLoad previewMidiLoad;
+        private string[] trackNames = new string[0]; // Array to hold track names
+
+        [MenuItem("Tools/MPTK/MIDI Test Creator")]
+        public static void ShowWindow()
+        {
+            var window = GetWindow<MidiTestCreatorWindow>("MIDI Test Creator");
+            window.minSize = new Vector2(400, 600);
+            // Create singleton if needed
+            if (MidiPlayerGlobal.Instance == null)
+            {
+                var go = new GameObject("MidiPlayerGlobal");
+                var mpg = go.AddComponent<MidiPlayerGlobal>();
+                mpg.InitInstance();
+            }
+            window.RefreshMidiList();
+        }
+
+        private void RefreshMidiList()
+        {
+            // Get direct reference to MPTK MIDI files
+            if (MidiPlayerGlobal.CurrentMidiSet != null && MidiPlayerGlobal.CurrentMidiSet.MidiFiles != null)
+            {
+                midiFiles = MidiPlayerGlobal.CurrentMidiSet.MidiFiles.ToArray();
+                Debug.Log($"MPTK Database Loaded: {midiFiles.Length} MIDI files found.");
+            }
+            else
+            {
+                Debug.LogWarning("MPTK Database could not be loaded or contains no MIDI files.");
+                midiFiles = new string[0];
+            }
+        }
+
+        private void OnGUI()
+        {
+            EditorGUILayout.Space(10);
+            EditorGUILayout.LabelField("MIDI Test Song Creator", EditorStyles.boldLabel);
+            EditorGUILayout.Space(5);
+
+            if (GUILayout.Button("Refresh MIDI List"))
+            {
+                RefreshMidiList();
+            }
+
+            EditorGUILayout.Space(10);
+
+            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
+
+            // MIDI File Selection
+            EditorGUILayout.LabelField("1. Select MIDI File", EditorStyles.boldLabel);
+            int newSelectedIndex = EditorGUILayout.Popup("MIDI File", selectedMidiIndex, midiFiles);
+            if (newSelectedIndex != selectedMidiIndex)
+            {
+                selectedMidiIndex = newSelectedIndex;
+                if (selectedMidiIndex >= 0)
+                {
+                    LoadPreviewMidi(midiFiles[selectedMidiIndex]);
+                }
+            }
+
+            EditorGUILayout.Space(10);
+
+            // Track Selection with extracted names and note counts
+            if (trackNames.Length > 0)
+            {
+                selectedTrack = EditorGUILayout.Popup("Track", selectedTrack, trackNames);
+            }
+            else
+            {
+                EditorGUILayout.HelpBox("No tracks available for selection.", MessageType.Warning);
+            }
+
+            EditorGUILayout.Space(10);
+
+            // MIDI Preview Info
+            EditorGUILayout.LabelField("2. MIDI Information", EditorStyles.boldLabel);
+            if (previewMidiLoad != null)
+            {
+                EditorGUILayout.LabelField($"Track Count: {previewMidiLoad.MPTK_TrackCount}");
+                EditorGUILayout.LabelField($"Initial Tempo: {previewMidiLoad.MPTK_InitialTempo} BPM");
+                EditorGUILayout.LabelField($"Time Signature: {previewMidiLoad.MPTK_TimeSigNumerator}/{previewMidiLoad.MPTK_TimeSigDenominator}");
+                EditorGUILayout.LabelField($"Duration: {previewMidiLoad.MPTK_Duration.ToString(@"mm\:ss")}");
+            }
+            else
+            {
+                EditorGUILayout.HelpBox("Select a MIDI file to view information", MessageType.Info);
+            }
+
+            EditorGUILayout.Space(20);
+
+            GUI.enabled = selectedMidiIndex >= 0;
+            if (GUILayout.Button("Create Test Song"))
+            {
+                CreateTestSong();
+            }
+            GUI.enabled = true;
+
+            EditorGUILayout.EndScrollView();
+        }
+
+        private int CountNotesInTrack(MidiLoad midiLoad, int trackIndex)
+        {
+            if (midiLoad != null)
+            {
+                // Simulate note counting logic based on the preview logs or track structure
+                var events = midiLoad.MPTK_ReadMidiEvents();
+                if (events != null)
+                {
+                    return events.Count(evt => evt.Track == trackIndex && evt.Command == MPTKCommand.NoteOn);
+                }
+            }
+            return 0;
+        }
+
+
+
+        private void LoadPreviewMidi(string midiName)
+        {
+            var midiLoad = new MidiLoad();
+
+            if (midiLoad.MPTK_Load(midiName)) // Load the MIDI file
+            {
+                Debug.Log($"Loaded MIDI: {midiName}");
+
+                // Initialize arrays for track names and note counts
+                int trackCount = midiLoad.MPTK_TrackCount;
+                trackNames = new string[trackCount];
+
+                for (int trackIndex = 0; trackIndex < trackCount; trackIndex++)
+                {
+                    trackNames[trackIndex] = $"Track {trackIndex}"; // Default name
+
+                    // Iterate over MIDI events to find track names and count notes
+                    int noteCount = 0;
+                    foreach (var midiEvent in midiLoad.MPTK_MidiEvents)
+                    {
+                        if (midiEvent.Track == trackIndex)
+                        {
+                            if (midiEvent.Command == MPTKCommand.MetaEvent && midiEvent.Meta == MPTKMeta.TextEvent)
+                            {
+                                trackNames[trackIndex] = midiEvent.Info; // Set track name
+                            }
+                            if (midiEvent.Command == MPTKCommand.NoteOn)
+                            {
+                                noteCount++; // Increment note count
+                            }
+                        }
+                    }
+
+                    // Append note count to the track name for clarity
+                    trackNames[trackIndex] += $" ({noteCount} notes)";
+                }
+
+                Debug.Log($"Loaded {trackNames.Length} tracks with extracted names and note counts.");
+            }
+            else
+            {
+                Debug.LogError($"Failed to load MIDI file: {midiName}");
+                trackNames = new string[0]; // Reset on failure
+            }
+        }
+
+
+        private void CreateTestSong()
+        {
+            if (selectedMidiIndex >= 0)
+            {
+                // Pass exact MIDI name from MPTK database
+                string midiName = midiFiles[selectedMidiIndex];
+                var songItem = MidiToSongConverter.CreateSongFromMidi(midiName, selectedRootNote, selectedTrack);
+
+                if (songItem != null)
+                {
+                    // Update author and difficulty metadata using the format expected
+                    songItem.author = authorName;
+                    if (songItem.metadata == null)
+                        songItem.metadata = new SongItem.MetadataList();
+
+                    var difficultyMetadata = songItem.metadata.values.Find(x => x.id == "difficulties");
+                    if (difficultyMetadata == null)
+                    {
+                        difficultyMetadata = new SongItem.Metadata
+                        {
+                            id = "difficulties",
+                            stringValue = ""
+                        };
+                        songItem.metadata.values.Add(difficultyMetadata);
+                    }
+                    difficultyMetadata.intValue = difficulty;
+
+                    EditorUtility.SetDirty(songItem);
+                    AssetDatabase.SaveAssets();
+                    Debug.Log($"Successfully created test song: {songItem.name}");
+                }
+            }
+        }
+    }
+}

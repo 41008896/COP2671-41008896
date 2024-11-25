@@ -1,0 +1,185 @@
+using UnityEngine;
+using MidiPlayerTK;
+using System.Collections.Generic;
+using System.Linq;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+namespace RhythmGameStarter
+{
+    public class MidiToSongConverter
+    {
+        private const string SONG_ASSET_PATH = "Assets/Songs/";
+        public static readonly int[] PentatonicDegrees = { 0, 2, 4, 7, 9 }; // Made public for debugging
+        private static MidiFileLoader midiLoader;
+
+        public static SongItem CreateSongFromMidi(string midiName, SongItem.NoteName rootNote, int selectedTrack)
+        {
+            Debug.Log($"=== Starting MIDI Conversion Process ===");
+            Debug.Log($"Loading MIDI: {midiName}");
+
+            // Ensure the midiLoader is initialized
+            if (midiLoader == null)
+            {
+                Debug.Log("Initializing MidiFileLoader...");
+                midiLoader = new MidiFileLoader();
+            }
+
+            midiLoader.MPTK_MidiName = midiName;
+
+            if (!midiLoader.MPTK_Load())
+            {
+                Debug.LogError($"Failed to load MIDI file: {midiName}");
+                return null;
+            }
+
+            Debug.Log($"MIDI File Loaded Successfully:");
+            Debug.Log($"Initial Tempo: {midiLoader.MPTK_InitialTempo} BPM");
+            Debug.Log($"Time Signature: {midiLoader.MPTK_TimeSigNumerator}/{midiLoader.MPTK_TimeSigDenominator}");
+
+            var songItem = ScriptableObject.CreateInstance<SongItem>();
+            songItem.name = midiName;
+            songItem.bpm = (int)midiLoader.MPTK_InitialTempo;
+            songItem.notes = new List<SongItem.MidiNote>();
+            songItem.useCurrentBpmMidiImport = false;
+            songItem.metadata = new SongItem.MetadataList();
+            songItem.metadata.values = new List<SongItem.Metadata>();
+
+            var midiEvents = midiLoader.MPTK_ReadMidiEvents();
+            Debug.Log($"Total MIDI Events: {midiEvents.Count}");
+
+            int rootValue = (int)rootNote;
+            var trackEvents = midiEvents.Where(e => e.Track == selectedTrack).ToList();
+            Debug.Log($"Events in selected track {selectedTrack}: {trackEvents.Count}");
+
+            int noteOnCount = 0;
+            foreach (var midiEvent in trackEvents)
+            {
+                if (midiEvent.Command == MPTKCommand.NoteOn && midiEvent.Velocity > 0)
+                {
+                    noteOnCount++;
+                    Debug.Log($"Processing Note {noteOnCount}:");
+                    Debug.Log($"  Original: Value={midiEvent.Value}, Time={midiEvent.RealTime:F2}ms, Length={midiEvent.Length}");
+
+                    var note = ConvertToSongNote(midiEvent, rootValue);
+                    if (note != null)
+                    {
+                        songItem.notes.Add(note);
+                        Debug.Log($"  Converted: NoteName={note.noteName}, Time={note.time:F2}s, Length={note.noteLength:F2}");
+                    }
+                }
+            }
+
+            if (songItem.notes.Count == 0)
+            {
+                Debug.LogError($"No valid notes found in track {selectedTrack}");
+                return null;
+            }
+
+            Debug.Log($"Successfully converted {songItem.notes.Count} notes");
+
+            #if UNITY_EDITOR
+            string assetPath = $"{SONG_ASSET_PATH}/{midiName}.asset";
+            try
+            {
+                System.IO.Directory.CreateDirectory(SONG_ASSET_PATH);
+                AssetDatabase.CreateAsset(songItem, assetPath);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+                Debug.Log($"Created SongItem at {assetPath}");
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Failed to save SongItem asset: {e.Message}");
+                return null;
+            }
+            #endif
+
+            return songItem;
+        }
+
+        private static SongItem.MidiNote ConvertToSongNote(MPTKEvent midiEvent, int rootValue)
+        {
+            try
+            {
+                // Original note properties
+                int originalNote = midiEvent.Value;
+                int originalOctave = originalNote / 12;
+                int noteInScale = originalNote % 12;
+
+                Debug.Log($"  Note Conversion Details:");
+                Debug.Log($"    Original Note: {originalNote} (Octave: {originalOctave}, Scale Degree: {noteInScale})");
+                Debug.Log($"    Root Value: {rootValue}");
+
+                // Calculate semitones from root
+                int semitonesFromRoot = (noteInScale - rootValue + 12) % 12;
+                Debug.Log($"    Semitones from root: {semitonesFromRoot}");
+
+                // Find nearest pentatonic degree
+                int nearestDegree = FindNearestPentatonicDegree(semitonesFromRoot);
+                Debug.Log($"    Nearest pentatonic degree: {nearestDegree}");
+
+                // Map to lane number (0-4 based on position in pentatonic scale)
+                int laneNumber = System.Array.IndexOf(PentatonicDegrees, nearestDegree);
+                Debug.Log($"    Mapped to lane: {laneNumber}");
+
+                // Access global midiLoader for timing data
+                float ticksPerQuarterNote = midiLoader.MPTK_DeltaTicksPerQuarterNote;
+                float secondsPerTick = (float)midiLoader.MPTK_InitialTempo / (ticksPerQuarterNote * 1_000_000f);
+
+                // Timing calculations
+                float timeInSeconds = midiEvent.Tick * secondsPerTick; // Event time in seconds
+                float lengthInSeconds = midiEvent.Length * secondsPerTick; // Note length in seconds
+                float beatIndex = midiEvent.Tick / ticksPerQuarterNote; // Starting beat
+                float beatLengthIndex = midiEvent.Length / ticksPerQuarterNote; // Beat duration
+
+                // Final note creation
+                var note = new SongItem.MidiNote
+                {
+                    noteName = (SongItem.NoteName)(((int)(nearestDegree + rootValue)) % 12),
+                    noteOctave = originalOctave,
+                    time = timeInSeconds, // Corrected timing in seconds
+                    noteLength = lengthInSeconds, // Corrected length in seconds
+                    beatIndex = beatIndex,
+                    beatLengthIndex = beatLengthIndex
+                };
+
+                Debug.Log($"    Final note: NoteName={note.noteName}, Octave={note.noteOctave}, Time={note.time:F2}s, Length={note.noteLength:F2}s");
+                return note;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Error converting note: {e.Message}");
+                Debug.LogError($"Event details: Value={midiEvent.Value}, Time={midiEvent.RealTime}, Length={midiEvent.Length}");
+                return null;
+            }
+        }
+
+        // Pentatonic Transformation
+        private static int FindNearestPentatonicDegree(int semitonesFromRoot)
+        {
+            int nearestDegree = PentatonicDegrees[0];
+            int minDistance = int.MaxValue;
+
+            Debug.Log($"      Finding nearest pentatonic degree for {semitonesFromRoot} semitones:");
+            foreach (int degree in PentatonicDegrees)
+            {
+                int distance = Mathf.Min(
+                    Mathf.Abs(semitonesFromRoot - degree),
+                    Mathf.Abs(semitonesFromRoot - (degree + 12))
+                );
+                Debug.Log($"        Distance to {degree}: {distance} semitones");
+
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestDegree = degree;
+                    Debug.Log($"        New nearest degree: {degree} (distance: {distance})");
+                }
+            }
+
+            return nearestDegree;
+        }
+    }
+}

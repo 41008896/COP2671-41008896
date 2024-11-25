@@ -1,0 +1,113 @@
+using UnityEngine;
+using TMPro;
+using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+namespace RhythmGameStarter
+{
+    public class SongListHandler : MonoBehaviour
+    {
+        private const string SONGS_FOLDER = "Assets/Songs";
+
+        public Transform container;
+        [Tooltip("Must contain Button & TextMeshProUGUI component")]
+        public GameObject itemPrefab;
+        [CollapsedEvent]
+        public SongItemEvent onItemSelect;
+
+        private void Start()
+        {
+            Debug.Log("SongListHandler: Starting");
+            RefreshUI();
+        }
+
+        private void RefreshUI()
+        {
+            Debug.Log("SongListHandler: Refreshing UI");
+            // Clear existing items
+            foreach (Transform child in container)
+                GameObject.Destroy(child.gameObject);
+
+            // Load all SongItems from Songs folder
+            List<SongItem> songItems = new List<SongItem>();
+
+#if UNITY_EDITOR
+            string[] guids = AssetDatabase.FindAssets("t:SongItem", new[] { SONGS_FOLDER });
+            Debug.Log($"SongListHandler: Found {guids.Length} song items in {SONGS_FOLDER}");
+
+            foreach (string guid in guids)
+            {
+                string assetPath = AssetDatabase.GUIDToAssetPath(guid);
+                SongItem songItem = AssetDatabase.LoadAssetAtPath<SongItem>(assetPath);
+                if (songItem != null)
+                {
+                    songItems.Add(songItem);
+                    Debug.Log($"SongListHandler: Loaded song - {songItem.name}");
+                }
+            }
+#else
+                // Runtime loading from Resources folder
+                SongItem[] loadedSongs = Resources.LoadAll<SongItem>(SONGS_FOLDER);
+                songItems.AddRange(loadedSongs);
+                Debug.Log($"SongListHandler: Loaded {loadedSongs.Length} songs at runtime");
+#endif
+
+            int index = 0;
+            foreach (var songItem in songItems)
+            {
+                index++;
+                CreateSongListItem(songItem, index);
+            }
+        }
+
+        private void CreateSongListItem(SongItem songItem, int index)
+        {
+            Debug.Log($"SongListHandler: Creating list item for {songItem.name}");
+
+            var item = Instantiate(itemPrefab, container);
+            item.transform.localScale = Vector3.one;
+            item.name = songItem.name;
+
+            var songListItem = item.GetComponent<SongListItem>();
+            if (songListItem != null)
+            {
+                songListItem.targetSongItem = songItem;
+
+                // Split the filename to get base name without the root.track suffix
+                string displayName = songItem.name.Split('.')[0];
+                songListItem.label.text = displayName;
+
+                songListItem.authorLabel.text = songItem.author;
+                songListItem.indexLabel.text = index.ToString();
+
+                if (songListItem.coverArtImage)
+                    songListItem.coverArtImage.sprite = songItem.coverArt;
+
+                if (songItem.TryGetMetadata("difficulties", out var difficulties))
+                {
+                    songListItem.difficultiesFill.fillAmount = difficulties.intValue / 3f;
+                    Debug.Log($"SongListHandler: Set difficulty for {songItem.name}: {difficulties.intValue}/3");
+                }
+                else
+                {
+                    Debug.Log($"SongListHandler: No difficulty found for {songItem.name}");
+                    songListItem.difficultiesFill.gameObject.SetActive(false);
+                }
+
+                songListItem.button.onClick.AddListener(() =>
+                {
+                    Debug.Log($"SongListHandler: Selected song - {songItem.name}");
+                    onItemSelect.Invoke(songItem);
+                });
+
+                songListItem.onItemSetup.Invoke();
+            }
+            else
+            {
+                Debug.LogError($"SongListHandler: Failed to get SongListItem component for {songItem.name}");
+            }
+        }
+    }
+}

@@ -1,0 +1,81 @@
+using UnityEngine;
+using UnityEditor;
+using System.IO;
+using MidiPlayerTK;
+
+namespace RhythmGameStarter
+{
+    public class MidiTestCreator : EditorWindow
+    {
+        private const string SONGS_FOLDER = "Assets/Songs";
+        private const string MIDI_FOLDER = "Assets/Songs/MIDIs";
+
+        [MenuItem("Tools/MPTK/Create Test Song Item")]
+        public static void CreateTestSong()
+        {
+            // Ensure folders exist
+            if (!Directory.Exists(SONGS_FOLDER))
+            {
+                Debug.Log($"Creating Songs folder at: {SONGS_FOLDER}");
+                Directory.CreateDirectory(SONGS_FOLDER);
+            }
+            if (!Directory.Exists(MIDI_FOLDER))
+            {
+                Debug.Log($"Creating MIDIs folder at: {MIDI_FOLDER}");
+                Directory.CreateDirectory(MIDI_FOLDER);
+            }
+
+            // Hardcoded test values
+            string midiName = "TestMidi"; // MIDI file must exist in Resources/MidiDB
+            SongItem.NoteName rootNote = SongItem.NoteName.C;
+            int selectedTrack = 0;
+
+            Debug.Log($"=== Starting MIDI conversion process ===");
+            Debug.Log($"MIDI Name: {midiName}");
+            Debug.Log($"Root Note: {rootNote}");
+            Debug.Log($"Selected Track: {selectedTrack}");
+
+            // Create metadata for the song
+            var songItem = MidiToSongConverter.CreateSongFromMidi(midiName, rootNote, selectedTrack);
+
+            if (songItem != null)
+            {
+                // Add additional metadata
+                songItem.author = "Test Author";
+
+                // Add difficulty metadata
+                if (songItem.metadata == null)
+                    songItem.metadata = ScriptableObject.CreateInstance<SongItem.MetadataList>();
+
+                var difficulty = new SongItem.Metadata
+                {
+                    id = "difficulties",
+                    intValue = 2, // Medium difficulty (0-3)
+                    stringValue = ""
+                };
+                songItem.metadata.values.Add(difficulty);
+
+                Debug.Log($"=== Song creation successful ===");
+                Debug.Log($"Notes count: {songItem.notes.Count}");
+                Debug.Log($"BPM: {songItem.bpm}");
+                Debug.Log($"Author: {songItem.author}");
+                Debug.Log($"Difficulty: {difficulty.intValue}/3");
+
+                // Log first few notes for verification
+                int notePreviewCount = Mathf.Min(5, songItem.notes.Count);
+                Debug.Log($"First {notePreviewCount} notes:");
+                for (int i = 0; i < notePreviewCount; i++)
+                {
+                    var note = songItem.notes[i];
+                    Debug.Log($"Note {i}: Name={note.noteName}, Time={note.time:F2}s, Length={note.noteLength:F2}, Lane={System.Array.IndexOf(MidiToSongConverter.PentatonicDegrees, (int)note.noteName % 12)}");
+                }
+            }
+            else
+            {
+                Debug.LogError("Failed to create SongItem!");
+            }
+
+            AssetDatabase.Refresh();
+        }
+    }
+}

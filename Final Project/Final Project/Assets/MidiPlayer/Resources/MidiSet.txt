@@ -91,6 +91,7 @@
     <string>Satie - Trois Gnossiennes</string>
     <string>Sibelius - Finlandia</string>
     <string>Sibelius - Romance</string>
+    <string>smb_over</string>
     <string>Take 5 - by Paul Desmond</string>
     <string>Tchaikovsky - Flower Waltz</string>
     <string>Tetris2</string>

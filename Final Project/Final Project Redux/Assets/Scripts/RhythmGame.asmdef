@@ -1,0 +1,18 @@
+{
+    "name": "RhythmGame",
+    "rootNamespace": "RhythmGameStarter",
+    "references": [
+        "MidiPlayer.Run",
+        "Unity.TextMeshPro",
+        "com.bennykok.rgs.runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

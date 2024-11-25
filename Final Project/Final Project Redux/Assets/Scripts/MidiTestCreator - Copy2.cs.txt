@@ -1,0 +1,180 @@
+using UnityEngine;
+using UnityEditor;
+using MidiPlayerTK;
+using System.IO;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace RhythmGameStarter
+{
+    public class MidiTestCreatorWindow : EditorWindow
+    {
+        private Vector2 scrollPosition;
+        private string[] midiFiles;
+        private int selectedMidiIndex = -1;
+        private SongItem.NoteName selectedRootNote = SongItem.NoteName.C;
+        private int selectedTrack = 0;
+        private string authorName = "Test Author";
+        private int difficulty = 2;
+        private MidiLoad previewMidiLoad;
+
+        [MenuItem("Tools/MPTK/MIDI Test Creator")]
+        public static void ShowWindow()
+        {
+            var window = GetWindow<MidiTestCreatorWindow>("MIDI Test Creator");
+            window.minSize = new Vector2(400, 600);
+            // Create singleton if needed
+            if (MidiPlayerGlobal.Instance == null)
+            {
+                var go = new GameObject("MidiPlayerGlobal");
+                var mpg = go.AddComponent<MidiPlayerGlobal>();
+                mpg.InitInstance();
+            }
+            window.RefreshMidiList();
+        }
+
+        private void RefreshMidiList()
+        {
+            // Get direct reference to MPTK MIDI files
+            if (MidiPlayerGlobal.CurrentMidiSet != null && MidiPlayerGlobal.CurrentMidiSet.MidiFiles != null)
+            {
+                midiFiles = MidiPlayerGlobal.CurrentMidiSet.MidiFiles.ToArray();
+                Debug.Log($"MPTK Database Loaded: {midiFiles.Length} MIDI files found.");
+            }
+            else
+            {
+                Debug.LogWarning("MPTK Database could not be loaded or contains no MIDI files.");
+                midiFiles = new string[0];
+            }
+        }
+
+        private void OnGUI()
+        {
+            EditorGUILayout.Space(10);
+            EditorGUILayout.LabelField("MIDI Test Song Creator", EditorStyles.boldLabel);
+            EditorGUILayout.Space(5);
+
+            if (GUILayout.Button("Refresh MIDI List"))
+            {
+                RefreshMidiList();
+            }
+
+            EditorGUILayout.Space(10);
+
+            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
+
+            // MIDI File Selection - now gets exact name string when selected
+            EditorGUILayout.LabelField("1. Select MIDI File", EditorStyles.boldLabel);
+            int newSelectedIndex = EditorGUILayout.Popup("MIDI File", selectedMidiIndex, midiFiles);
+            if (newSelectedIndex != selectedMidiIndex)
+            {
+                selectedMidiIndex = newSelectedIndex;
+                if (selectedMidiIndex >= 0)
+                {
+                    LoadPreviewMidi(midiFiles[selectedMidiIndex]);
+                }
+            }
+
+            EditorGUILayout.Space(10);
+
+            // Parameters
+            EditorGUILayout.LabelField("2. Set Parameters", EditorStyles.boldLabel);
+            selectedRootNote = (SongItem.NoteName)EditorGUILayout.EnumPopup("Root Note", selectedRootNote);
+
+            // Track selection with disable state
+            bool wasEnabled = GUI.enabled;
+            if (previewMidiLoad == null)
+            {
+                GUI.enabled = false;
+            }
+
+            // Track Dropdown
+            if (previewMidiLoad != null)
+            {
+                selectedTrack = EditorGUILayout.Popup("Track", selectedTrack, Enumerable.Range(0, previewMidiLoad.MPTK_TrackCount).Select(i => $"Track {i}").ToArray());
+            }
+
+            GUI.enabled = wasEnabled;
+
+            authorName = EditorGUILayout.TextField("Author", authorName);
+            difficulty = EditorGUILayout.IntSlider("Difficulty", difficulty, 0, 3);
+
+            EditorGUILayout.Space(10);
+
+            // MIDI Preview Info
+            EditorGUILayout.LabelField("3. MIDI Information", EditorStyles.boldLabel);
+            if (previewMidiLoad != null)
+            {
+                EditorGUILayout.LabelField($"Track Count: {previewMidiLoad.MPTK_TrackCount}");
+                EditorGUILayout.LabelField($"Initial Tempo: {previewMidiLoad.MPTK_InitialTempo} BPM");
+                EditorGUILayout.LabelField($"Time Signature: {previewMidiLoad.MPTK_TimeSigNumerator}/{previewMidiLoad.MPTK_TimeSigDenominator}");
+                EditorGUILayout.LabelField($"Duration: {previewMidiLoad.MPTK_Duration.ToString(@"mm\:ss")}");
+            }
+            else
+            {
+                EditorGUILayout.HelpBox("Select a MIDI file to view information", MessageType.Info);
+            }
+
+            EditorGUILayout.Space(20);
+
+            // Create button with disable state - now passes exact MIDI name string
+            GUI.enabled = selectedMidiIndex >= 0;
+            if (GUILayout.Button("Create Test Song"))
+            {
+                CreateTestSong();
+            }
+            GUI.enabled = wasEnabled;
+
+            EditorGUILayout.EndScrollView();
+        }
+
+        private void LoadPreviewMidi(string midiName)
+        {
+            var loader = new MidiFileLoader();
+            loader.MPTK_MidiName = midiName;  // Use exact name from MPTK
+            if (loader.MPTK_Load())
+            {
+                previewMidiLoad = loader.MPTK_MidiLoaded;
+            }
+            else
+            {
+                Debug.LogError($"Failed to load MIDI: {midiName}");
+                previewMidiLoad = null;
+            }
+        }
+
+        private void CreateTestSong()
+        {
+            if (selectedMidiIndex >= 0)
+            {
+                // Pass exact MIDI name from MPTK database
+                string midiName = midiFiles[selectedMidiIndex];
+                var songItem = MidiToSongConverter.CreateSongFromMidi(midiName, selectedRootNote, selectedTrack);
+
+                if (songItem != null)
+                {
+                    // Update author and difficulty metadata using the format expected
+                    songItem.author = authorName;
+                    if (songItem.metadata == null)
+                        songItem.metadata = new SongItem.MetadataList();
+
+                    var difficultyMetadata = songItem.metadata.values.Find(x => x.id == "difficulties");
+                    if (difficultyMetadata == null)
+                    {
+                        difficultyMetadata = new SongItem.Metadata
+                        {
+                            id = "difficulties",
+                            stringValue = ""
+                        };
+                        songItem.metadata.values.Add(difficultyMetadata);
+                    }
+                    difficultyMetadata.intValue = difficulty;
+
+                    EditorUtility.SetDirty(songItem);
+                    AssetDatabase.SaveAssets();
+                    Debug.Log($"Successfully created test song: {songItem.name}");
+                }
+            }
+        }
+    }
+}
