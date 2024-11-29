@@ -68,9 +68,18 @@ namespace RhythmGameStarter
                 {
                     onItemSelect.Invoke(target);
                 });
-                
+                // Subscribe to the delete event
+                songListItem.onItemDelete.AddListener(RemoveSong);
+
                 songListItem.onItemSetup.Invoke();
             }
+        }
+
+        private void RemoveSong(SongItem songToRemove)
+        {
+            Debug.Log($"Removing song: {songToRemove.name}");
+            songItems.values.Remove(songToRemove); // Remove the song from the list
+            RefreshUI(); // Refresh the UI
         }
     }
 }

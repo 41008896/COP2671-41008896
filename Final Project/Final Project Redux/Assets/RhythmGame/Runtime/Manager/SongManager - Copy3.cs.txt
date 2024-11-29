@@ -1,0 +1,317 @@
+using UnityEngine;
+using MidiPlayerTK;
+using System;
+using UnityEngine.Events;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace RhythmGameStarter
+{
+    [RequireComponent(typeof(TrackManager))]
+    public class SongManager : MonoBehaviour
+    {
+        [Comment("Responsible for song control, handling song related events.")]
+        private MidiFilePlayer midiFilePlayer;
+
+        [Title("Properties", 0)]
+        [Space]
+        public bool playOnAwake = true;
+        public SongItem defaultSong;
+        public bool looping;
+
+        [Title("Display", 0)]
+        public bool progressAsPercentage = true;
+        public bool inverseProgressFill = false;
+
+        [HideInInspector] public float secPerBeat;
+        [HideInInspector] public float songPosition;
+        [HideInInspector] public IEnumerable<SongItem.MidiNote> currnetNotes;
+
+
+        [Title("Events", 0)]
+        [CollapsedEvent] public FloatEvent onSongProgress;
+        [CollapsedEvent] public FloatEvent onSongProgressFill;
+        [CollapsedEvent] public StringEvent onSongProgressDisplay;
+        [CollapsedEvent] public UnityEvent onSongStart;
+        [CollapsedEvent] public UnityEvent onSongStartPlay;
+        [CollapsedEvent] public UnityEvent onSongFinished;
+
+        [NonSerialized] public bool songPaused;
+        [NonSerialized] public SongItem currentSongItem;
+        [NonSerialized] public ComboSystem comboSystem;
+        [NonSerialized] public TrackManager trackManager;
+
+        private bool songHasStarted;
+        private bool songStartEventInvoked;
+        private float lastMidiPosition;
+        private float smoothPosition;
+        private float startTime;
+
+        // Static member should maybe pass?  just access it from the instance?
+        public float delay;
+
+        private void Awake()
+        {
+            Debug.Log("SongManager: Initializing");
+            trackManager = GetComponent<TrackManager>();
+            comboSystem = GetComponent<ComboSystem>();
+
+            // Find the MidiFilePlayer GameObject by tag or name
+            midiFilePlayer = GameObject.FindWithTag("MidiFilePlayer")?.GetComponent<MidiFilePlayer>();
+            if (midiFilePlayer == null)
+            {
+                Debug.LogError("SongManager: MidiFilePlayer not found in the scene!");
+                return;
+            }
+
+            midiFilePlayer.MPTK_PlayOnStart = false; // We'll control playback
+            trackManager.Init(this);
+        }
+
+        private void Start()
+        {
+            Debug.Log("SongManager: Starting");
+            if (playOnAwake && defaultSong)
+            {
+                PlaySong(defaultSong);
+            }
+
+            // Initialize MPTK if it hasn't been already
+            InitializeMPTK();
+        }
+
+        private void InitializeMPTK()
+        {
+            // First ensure MidiPlayerGlobal exists and is initialized
+            if (MidiPlayerGlobal.Instance == null)
+            {
+                Debug.Log("Creating MidiPlayerGlobal...");
+                var mpgObject = new GameObject("MidiPlayerGlobal");
+                var mpg = mpgObject.AddComponent<MidiPlayerGlobal>();
+                mpg.InitInstance();
+            }
+
+            // Find or create MidiFilePlayer
+            midiFilePlayer = GameObject.FindWithTag("MidiFilePlayer")?.GetComponent<MidiFilePlayer>();
+            if (midiFilePlayer == null)
+            {
+                Debug.Log("Creating MidiFilePlayer...");
+                var midiPlayerObj = new GameObject("MidiFilePlayer");
+                midiPlayerObj.tag = "MidiFilePlayer";
+                midiFilePlayer = midiPlayerObj.AddComponent<MidiFilePlayer>();
+
+                // Configure MidiFilePlayer
+                midiFilePlayer.MPTK_PlayOnStart = false;  // We'll control playback
+                midiFilePlayer.MPTK_InitSynth();         // Initialize the synthesizer
+            }
+
+            // Wait for MPTK to be ready
+            if (!MidiPlayerGlobal.MPTK_SoundFontLoaded)
+            {
+                Debug.Log("Waiting for SoundFont to load...");
+                StartCoroutine(WaitForMPTK());
+            }
+            else
+            {
+                Debug.Log("MPTK already initialized and SoundFont loaded");
+            }
+
+            trackManager.Init(this);
+        }
+
+        private System.Collections.IEnumerator WaitForMPTK()
+        {
+            while (!MidiPlayerGlobal.MPTK_IsReady())
+            {
+                yield return null;
+            }
+            Debug.Log($"MPTK Ready! SoundFont loaded with {MidiPlayerGlobal.MPTK_CountPresetLoaded} presets");
+        }
+
+        public void PlaySong()
+        {
+            if (defaultSong)
+                PlaySong(defaultSong);
+            else
+                Debug.LogWarning("Default song is not set!");
+        }
+
+        public void PlaySongSelected(SongItem songItem)
+        {
+            PlaySong(songItem);
+        }
+
+        public void SetDefaultSong(SongItem songItem)
+        {
+            defaultSong = songItem;
+        }
+
+        public void PlaySong(SongItem songItem)
+        {
+            // Try to fix delay bug
+            delay = 0;
+            
+            Debug.Log($"SongManager: Playing song {songItem.name}");
+            currentSongItem = songItem;
+
+            // Standard BPM to seconds formula
+            secPerBeat = 60.0f / currentSongItem.bpm;
+
+            // Stop any current playback
+            midiFilePlayer.MPTK_Stop();
+
+            // Pre-load the MIDI file
+            midiFilePlayer.MPTK_MidiName = songItem.midiReference;
+            if (midiFilePlayer.MPTK_Load() == null)
+            {
+                Debug.LogError($"Failed to load MIDI: {songItem.midiReference}");
+                return;
+            }
+
+            // Wait for both MIDI and SoundFont to be fully ready
+            // Keep checking until the MIDI file is loaded
+            while (!MidiPlayerGlobal.MPTK_IsReady() ||
+                   midiFilePlayer.MPTK_MidiLoaded == null ||
+                   !midiFilePlayer.MPTK_MidiLoaded.ReadyToPlay || // Key flag from MidiLoad
+                   midiFilePlayer.MPTK_MidiLoaded.MPTK_MidiEvents == null)
+            {
+                Debug.Log("Waiting for MIDI to be fully ready...");
+                System.Threading.Thread.Sleep(10);
+            }
+
+            //midiFilePlayer.MPTK_MidiName = songItem.midiReference;
+            midiFilePlayer.MPTK_Speed = songItem.speedModifier;
+
+            if (songItem.customMidiMapping || songItem.customPrefabMapping)
+                trackManager.OverrideMapping(songItem.customMidiMapping, songItem.customPrefabMapping);
+            else
+                trackManager.ResetMappingOverride();
+
+            // Get notes - these were converted during creation
+            currnetNotes = songItem.GetNotes();
+
+            if (currnetNotes == null || !currnetNotes.Any())
+            {
+                Debug.LogError($"SongManager: currnetNotes is null or empty for song {songItem.name}.");
+                return;
+            }
+
+            Debug.Log($"SongManager: Retrieved {currnetNotes.Count()} notes.");
+
+            // Do the expensive calculation before setup
+            trackManager.PreCalculateTrackAssignments(currnetNotes);
+            // Do the state setup
+            trackManager.SetupForNewSong();
+
+            Debug.Log($"Attempting to play MIDI: {midiFilePlayer.MPTK_MidiName}");
+            if (string.IsNullOrEmpty(midiFilePlayer.MPTK_MidiName))
+            {
+                Debug.LogError("MPTK_MidiName is null or empty. Cannot play MIDI.");
+                return;
+            }
+
+            // Start playback
+            midiFilePlayer.MPTK_Play(true); // Pass true because we've already loaded it
+
+            songHasStarted = true;
+            songPaused = false;
+            onSongStartPlay.Invoke();
+        }
+
+        public void PauseSong()
+        {
+            Debug.Log("SongManager: Pausing song");
+            if (!songPaused)
+            {
+                songPaused = true;
+                midiFilePlayer.MPTK_Pause();
+            }
+        }
+
+        public void ResumeSong()
+        {
+            Debug.Log("SongManager: Resuming song");
+            if (!songHasStarted)
+            {
+                PlaySong();
+                return;
+            }
+            if (!songPaused) return;
+
+            songPaused = false;
+            midiFilePlayer.MPTK_UnPause();
+        }
+
+        public void StopSong(bool dontInvokeEvent = false)
+        {
+            Debug.Log("SongManager: Stopping song");
+            midiFilePlayer.MPTK_Stop();
+            songHasStarted = false;
+            songStartEventInvoked = false;
+
+            // Hack to fix pooling issues (TODO: FIX I GUESS)
+            // Destroy and recreate TrackManager
+            //if (trackManager != null)
+            //    Destroy(trackManager);
+            //trackManager = gameObject.AddComponent<TrackManager>();
+            //trackManager.Init(this);
+
+            if (!dontInvokeEvent)
+                onSongFinished.Invoke();
+
+            trackManager.ClearAllTracks();
+        }
+
+        void Update()
+        {
+            if (!songStartEventInvoked && songHasStarted && midiFilePlayer.MPTK_Position >= 0)
+            {
+                songStartEventInvoked = true;
+                onSongStart.Invoke();
+            }
+
+            if (!songPaused && songHasStarted)
+            {
+                // Get raw MIDI position in ms
+                float currentMidiPosition = (float)midiFilePlayer.MPTK_Position;
+
+                // Smoothly interpolate between position updates
+                smoothPosition = lastMidiPosition + (currentMidiPosition - lastMidiPosition) * Time.deltaTime * 60f;
+                songPosition = smoothPosition / 1000f;  // Convert to seconds
+
+                lastMidiPosition = currentMidiPosition;
+
+                trackManager.UpdateTrack(songPosition, secPerBeat);
+                onSongProgress.Invoke(songPosition);
+
+                if (inverseProgressFill)
+                    onSongProgressFill.Invoke(1 - (songPosition / midiFilePlayer.MPTK_DurationMS));
+                else
+                    onSongProgressFill.Invoke(songPosition / midiFilePlayer.MPTK_DurationMS);
+
+                if (songPosition >= 0)
+                {
+                    if (progressAsPercentage)
+                        onSongProgressDisplay.Invoke(System.Math.Truncate(songPosition / midiFilePlayer.MPTK_DurationMS * 100) + "%");
+                    else
+                    {
+                        var now = new System.DateTime((long)songPosition * System.TimeSpan.TicksPerSecond);
+                        onSongProgressDisplay.Invoke(now.ToString("mm:ss"));
+                    }
+                }
+            }
+
+            if (songHasStarted && !midiFilePlayer.MPTK_IsPlaying)
+            {
+                songHasStarted = false;
+                songStartEventInvoked = false;
+                onSongFinished.Invoke();
+                trackManager.ClearAllTracks();
+
+                if (looping)
+                    PlaySong(currentSongItem);
+            }
+        }
+    }
+}

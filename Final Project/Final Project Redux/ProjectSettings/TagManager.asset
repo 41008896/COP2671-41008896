@@ -8,6 +8,7 @@ TagManager:
   - LineArea
   - Trigger
   - MidiFilePlayer
+  - Remove
   layers:
   - Default
   - TransparentFX
