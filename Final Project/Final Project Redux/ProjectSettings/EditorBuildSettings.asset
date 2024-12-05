@@ -29,6 +29,6 @@ EditorBuildSettings:
     path: Assets/RhythmGame/QuickStart/Basic/Scenes/Vertical4TracksDemo Input System.unity
     guid: fd6ce20fe82bb864484b04c8c894c208
   - enabled: 1
-    path: Assets/RhythmGame/QuickStart/Colorful/Scenes/Colorful Vertical Complete.unity
+    path: Assets/Scenes/MIDI Rhythm.unity
     guid: 5e348a5f3b00842458a97a2761923240
   m_configObjects: {}

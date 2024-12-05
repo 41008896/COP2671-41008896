@@ -30,7 +30,7 @@ namespace RhythmGameStarter
             RefreshUI();
         }
 
-        private void RefreshUI()
+        public void RefreshUI()
         {
             foreach (Transform child in container)
                 GameObject.Destroy(child.gameObject);

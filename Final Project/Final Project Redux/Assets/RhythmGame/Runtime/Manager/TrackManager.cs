@@ -266,6 +266,48 @@ namespace RhythmGameStarter
             }
         }
 
+        public static int CalculateMaxConcurrentNotes(SongItem songItem, float beatSize, float visibleBeatsInPlayArea)
+        {
+            if (songItem == null || songItem.notes == null || songItem.notes.Count == 0)
+                return 0;
+
+            var sortedNotes = songItem.notes.OrderBy(n => n.beatIndex).ToList();
+            int maxConcurrent = 0;
+            int currentConcurrent = 0;
+            int currentNoteIndex = 0;
+            float windowStart = sortedNotes[0].beatIndex;
+
+            while (currentNoteIndex < sortedNotes.Count)
+            {
+                // Add notes entering window
+                while (currentNoteIndex < sortedNotes.Count &&
+                       sortedNotes[currentNoteIndex].beatIndex <= windowStart + visibleBeatsInPlayArea)
+                {
+                    currentConcurrent++;
+                    currentNoteIndex++;
+                }
+
+                // Remove notes that left window
+                for (int i = 0; i < currentNoteIndex; i++)
+                {
+                    if (sortedNotes[i].beatIndex < windowStart)
+                    {
+                        currentConcurrent--;
+                    }
+                }
+
+                maxConcurrent = Mathf.Max(maxConcurrent, currentConcurrent);
+
+                // Advance window to next note if available
+                if (currentNoteIndex < sortedNotes.Count)
+                {
+                    windowStart = sortedNotes[currentNoteIndex].beatIndex;
+                }
+            }
+            Debug.Log("Max concurrent notes: " + maxConcurrent);
+            return maxConcurrent;
+        }
+
         private void CreateAllNoteNow()
         {
             for (int i = 0; i < tracks.Count(); i++)

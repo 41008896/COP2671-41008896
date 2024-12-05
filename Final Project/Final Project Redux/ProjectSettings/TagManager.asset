@@ -9,6 +9,8 @@ TagManager:
   - Trigger
   - MidiFilePlayer
   - Remove
+  - SongItemList
+  - MidiCreatorUI
   layers:
   - Default
   - TransparentFX
