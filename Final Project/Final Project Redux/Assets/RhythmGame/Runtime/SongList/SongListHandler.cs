@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,12 +24,19 @@ namespace RhythmGameStarter
         [CollapsedEvent]
         public SongItemEvent onItemSelect;
 
-
         [Serializable] public class SongItemList : ReorderableList<SongItem> { }
+
+#if UNITY_EDITOR
+        private readonly string savePath = Path.Combine(Application.dataPath, "Songs", "songlist.json");
+#else
+        private readonly string savePath = Path.Combine(Application.persistentDataPath, "songlist.json");
+#endif
 
         private void Start()
         {
-            RefreshUI();
+            EnsureJsonFileExists(); // Ensure the file exists at start
+            LoadSongListFromFile();   // Load the file after ensuring it exists
+            RefreshUI();              // Refresh the UI with loaded data
         }
 
         public void RefreshUI()
@@ -75,11 +84,121 @@ namespace RhythmGameStarter
             }
         }
 
-        private void RemoveSong(SongItem songToRemove)
+        public void AddSong(SongItem newSong)
         {
-            Debug.Log($"Removing song: {songToRemove.name}");
-            songItems.values.Remove(songToRemove); // Remove the song from the list
-            RefreshUI(); // Refresh the UI
+            if (!songItems.values.Contains(newSong))
+            {
+                songItems.values.Add(newSong);
+                // Save the updated list to the JSON file
+                SaveSongListToFile();
+                // Refresh UI to reflect changes
+                RefreshUI();
+            }
+        }
+
+        public void RemoveSong(SongItem songToRemove)
+        {
+            if (songItems.values.Contains(songToRemove))
+            {
+                songItems.values.Remove(songToRemove);
+                // Save the updated list to the JSON file
+                SaveSongListToFile();
+                // Refresh UI to reflect changes
+                RefreshUI();
+            }
+        }
+
+
+        private void LoadSongListFromFile()
+        {
+            try
+            {
+                string json = File.ReadAllText(savePath);
+                Debug.Log($"Loaded JSON: {json}");
+
+                if (string.IsNullOrWhiteSpace(json))
+                {
+                    songItems.values = new List<SongItem>();
+                    return;
+                }
+
+                var wrapper = JsonUtility.FromJson<SongItemListWrapper>(json);
+                Debug.Log($"Wrapper items count: {wrapper?.items?.Count ?? 0}");
+
+                songItems.values = wrapper?.items?
+                    .Where(serializedItem => serializedItem != null)
+                    .Select(serializedItem => serializedItem.ToSongItem())
+                    .ToList() ?? new List<SongItem>();
+
+                Debug.Log($"Loaded {songItems.values.Count} songs");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
+                songItems.values = new List<SongItem>();
+            }
+        }
+
+        private void EnsureJsonFileExists()
+        {
+            if (!File.Exists(savePath))
+            {
+                // Create proper JSON structure with empty items array
+                string json = "{\"items\":[]}";
+                File.WriteAllText(savePath, json);
+                Debug.Log($"Created new song list file at {savePath}");
+            }
+        }
+
+        //private void SaveSongListToFile()
+        //{
+        //    try
+        //    {
+        //        // Take first song only for testing
+        //        var testSong = songItems.values.FirstOrDefault();
+        //        if (testSong == null) return;
+
+        //        var serializedSong = new SerializableSongItem(testSong);
+        //        string directJson = JsonUtility.ToJson(serializedSong, true);
+        //        Debug.Log($"Direct serialization test: {directJson}");
+
+        //        // Now try with wrapper
+        //        var wrapper = new SongItemListWrapper
+        //        {
+        //            items = new List<SerializableSongItem> { serializedSong }
+        //        };
+        //        string wrapperJson = JsonUtility.ToJson(wrapper, true);
+        //        Debug.Log($"Wrapper serialization test: {wrapperJson}");
+
+        //        File.WriteAllText(savePath, wrapperJson);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.LogException(ex);
+        //    }
+        //}
+
+        private void SaveSongListToFile()
+        {
+            try
+            {
+                var testSong = songItems.values[0];
+                var serializedSong = new SerializableSongItem(testSong);
+                string json = JsonUtility.ToJson(serializedSong, true);
+                Debug.Log($"Single song JSON: {json}");
+                File.WriteAllText(savePath, json);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to save song: {ex}");
+            }
+        }
+
+
+        [System.Serializable]
+        private class SongItemListWrapper
+        {
+            public List<SerializableSongItem> items;
         }
     }
 }

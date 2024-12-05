@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coverArt: {fileID: 0}
   clip: {fileID: 0}
-  author: Test Author
+  author: 
   bpm: 120
   speedModifier: 1
   midiReference: Animal Crossing

@@ -76,9 +76,9 @@ public class MidiTestCreatorRuntime : MonoBehaviour
     void Start()
     {
         windowRect = new Rect(Screen.width * 0.1f, Screen.height * 0.1f,
-                            Screen.width * 0.8f, Screen.height * 0.8f);
+                              Screen.width * 0.8f, Screen.height * 0.8f);
         songItemList = GameObject.FindGameObjectWithTag("SongItemList");
-        songListHandler = songItemList?.GetComponent<SongListHandler>();
+        songListHandler = songItemList.GetComponent<SongListHandler>();
         RefreshMidiList();
     }
 
@@ -155,6 +155,84 @@ public class MidiTestCreatorRuntime : MonoBehaviour
         windowRect = GUI.Window(0, windowRect, DrawWindow, "MIDI Test Creator", windowStyle);
     }
 
+    //private void DrawWindow(int windowID)
+    //{
+    //    scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+
+    //    GUILayout.Label("MIDI Test Song Creator", labelStyle);
+
+    //    if (GUILayout.Button("Refresh MIDI List", buttonStyle))
+    //        RefreshMidiList();
+
+    //    GUILayout.Space(10);
+
+    //    // MIDI File Selection
+    //    GUILayout.Label("1. Select MIDI File", labelStyle);
+    //    if (midiFiles != null)
+    //    {
+    //        for (int i = 0; i < midiFiles.Length; i++)
+    //        {
+    //            bool isSelected = selectedMidiIndex == i;
+    //            if (GUILayout.Button(midiFiles[i], isSelected ? selectedButtonStyle : buttonStyle))
+    //            {
+    //                selectedMidiIndex = i;
+    //                LoadPreviewMidi(midiFiles[selectedMidiIndex]);
+    //            }
+    //        }
+    //    }
+
+    //    GUILayout.Space(10);
+
+    //    // MIDI Info Display
+    //    if (previewMidiLoad != null)
+    //    {
+    //        GUILayout.Label($"Duration: {previewMidiLoad.MPTK_Duration:mm\\:ss}", labelStyle);
+    //        GUILayout.Label($"Tempo: {previewMidiLoad.MPTK_InitialTempo} BPM", labelStyle);
+    //        GUILayout.Label($"Key Signature: {GetKeySignatureName(previewMidiLoad.MPTK_KeySigSharpsFlats, previewMidiLoad.MPTK_KeySigMajorMinor == 0 ? "Major" : "Minor")}", labelStyle);
+    //    }
+
+    //    GUILayout.Space(10);
+
+    //    // Channel Selection
+    //    GUILayout.Label("2. Select Channel", labelStyle);
+    //    foreach (var channel in channelInstruments)
+    //    {
+    //        int noteCount = GetChannelNoteCount(channel.Key);
+    //        if (noteCount > 0)
+    //        {
+    //            bool isSelected = selectedChannel == channel.Key;
+    //            if (GUILayout.Button($"Channel {channel.Key}: {GetInstrumentName(channel.Value)} ({noteCount} notes)",
+    //                isSelected ? selectedButtonStyle : buttonStyle))
+    //            {
+    //                selectedChannel = channel.Key;
+    //            }
+    //        }
+    //    }
+
+    //    GUILayout.Space(10);
+
+    //    // Song Properties
+    //    GUILayout.Label("3. Song Properties", labelStyle);
+    //    GUILayout.BeginHorizontal();
+    //    GUILayout.Label("Author:", labelStyle, GUILayout.Width(60));
+    //    authorName = GUILayout.TextField(authorName, textFieldStyle);
+    //    GUILayout.EndHorizontal();
+
+    //    GUILayout.Label($"Difficulty: {difficulty}", labelStyle);
+    //    difficulty = (int)GUILayout.HorizontalSlider(difficulty, 0, 3);
+
+    //    GUILayout.Space(20);
+
+    //    // Action Buttons
+    //    if (GUILayout.Button("Create Test Song", buttonStyle))
+    //        CreateSongListItem();
+
+    //    if (GUILayout.Button("Close", buttonStyle))
+    //        HideWindow();
+
+    //    GUILayout.EndScrollView();
+    //}
+
     private void DrawWindow(int windowID)
     {
         scrollPosition = GUILayout.BeginScrollView(scrollPosition);
@@ -185,7 +263,6 @@ public class MidiTestCreatorRuntime : MonoBehaviour
         if (previewMidiLoad != null)
         {
             GUILayout.BeginVertical("box");
-            GUILayout.Label($"Song: {previewMidiLoad.SequenceTrackName}", labelStyle);
             GUILayout.Label($"Duration: {previewMidiLoad.MPTK_Duration:mm\\:ss}", labelStyle);
             GUILayout.Label($"Tempo: {previewMidiLoad.MPTK_InitialTempo} BPM", labelStyle);
             GUILayout.Label($"Key Signature: {GetKeySignatureName(previewMidiLoad.MPTK_KeySigSharpsFlats, previewMidiLoad.MPTK_KeySigMajorMinor == 0 ? "Major" : "Minor")}", labelStyle);
@@ -235,7 +312,7 @@ public class MidiTestCreatorRuntime : MonoBehaviour
                 GUILayout.EndHorizontal();
 
                 GUILayout.Label($"Difficulty: {difficulty}", labelStyle);
-                difficulty = (int)GUILayout.HorizontalSlider(difficulty, 1, 5);
+                difficulty = (int)GUILayout.HorizontalSlider(difficulty, 0, 3);
                 GUILayout.EndVertical();
             }
         }
@@ -257,7 +334,7 @@ public class MidiTestCreatorRuntime : MonoBehaviour
         }
 
         GUILayout.EndScrollView();
-        //GUI.DragWindow(new Rect(0, 0, Screen.width, 20)); // Don't drag the window
+        //GUI.DragWindow(new Rect(0, 0, Screen.width, 20));
     }
 
     public void ShowWindow()
