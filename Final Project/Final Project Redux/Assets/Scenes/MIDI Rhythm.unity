@@ -546,7 +546,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 250}
-  m_SizeDelta: {x: 343.4834, y: 176.20633}
+  m_SizeDelta: {x: 400, y: 176.20633}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &137705682
 MonoBehaviour:
@@ -568,7 +568,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MIDI Rhythm
+  m_text: Harmonc Hero
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3ab8ee20f83df954cb5234df4390fa93, type: 2}
   m_sharedMaterial: {fileID: 21834714602157316, guid: 3ab8ee20f83df954cb5234df4390fa93,
