@@ -22,7 +22,7 @@ namespace RhythmGameStarter
         public class PrefabPoolEntry
         {
             public GameObject prefab;
-            public int poolSize = 10;
+            public int poolSize = 35;
         }
 
         [Serializable]

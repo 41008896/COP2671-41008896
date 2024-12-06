@@ -1,0 +1,3933 @@
+{
+    "name": "Dragon Ball Z - Opening (Tremolo Strings) [C]",
+    "author": "Test Author",
+    "midiReference": "Dragon Ball Z - Opening",
+    "rootKey": 0,
+    "bpm": 94,
+    "speedModifier": 1.0,
+    "timeSignatureNumerator": 0,
+    "timeSignatureDenominator": 0,
+    "difficulty": 2,
+    "notes": [
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 5.1063761711120609,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 8.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 5.2659502029418949,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 8.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 5.4255242347717289,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 8.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 5.585098743438721,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 8.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 5.744672775268555,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 9.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 5.904247283935547,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 9.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 6.063821315765381,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 9.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 6.223395347595215,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 9.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 6.382970333099365,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 10.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 6.542544364929199,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 10.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 6.702118873596191,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 10.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 6.861692905426025,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 10.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 7.021266937255859,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 11.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 7.180841445922852,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 11.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 7.3404154777526859,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 11.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 7.4999895095825199,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 11.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 7.659564018249512,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 12.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 7.819138050079346,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 12.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 7.978712558746338,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 12.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 8.138286590576172,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 12.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 8.297861099243164,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 13.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 8.457435607910157,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 13.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 8.617010116577149,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 13.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 8.776583671569825,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 13.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 8.936158180236817,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 14.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 9.095732688903809,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 14.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 9.255306243896485,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 14.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 9.414880752563477,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 14.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 9.574455261230469,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 15.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 9.734029769897461,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 15.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 9.893603324890137,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 15.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 10.053177833557129,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 15.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 10.212752342224121,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 16.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 10.372325897216797,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 16.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 10.531900405883789,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 16.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 10.691474914550782,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 16.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 10.851048469543457,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 17.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 11.01062297821045,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 17.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 11.170197486877442,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 17.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 11.329771041870118,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 17.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 11.48934555053711,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 18.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 11.648920059204102,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 18.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 11.808494567871094,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 18.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 11.96806812286377,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 18.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 12.127642631530762,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 19.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 12.287217140197754,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 19.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 12.44679069519043,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 19.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 12.606366157531739,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 19.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 12.76594066619873,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 20.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 12.925514221191407,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 20.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 13.085088729858399,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 20.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 13.24466323852539,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 20.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 13.404237747192383,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 21.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 13.563811302185059,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 21.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 13.72338581085205,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 21.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 13.882960319519043,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 21.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 14.042533874511719,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 22.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 14.202108383178711,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 22.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 14.361682891845704,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 22.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 14.521256446838379,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 22.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 14.680830955505371,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 23.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 14.840405464172364,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 23.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 14.999979019165039,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 23.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 15.159553527832032,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 23.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 15.319128036499024,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 24.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 15.478702545166016,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 24.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 15.638276100158692,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 24.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 15.797850608825684,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 24.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 15.957425117492676,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 25.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 16.11699867248535,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 25.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 16.276573181152345,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 25.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 16.436147689819337,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 25.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 16.595722198486329,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 26.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 16.75529670715332,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 26.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 16.914871215820314,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 26.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 17.074445724487306,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 26.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 17.234020233154298,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 27.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 17.393592834472658,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 27.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 17.55316734313965,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 27.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 17.71274185180664,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 27.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 17.872316360473634,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 28.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 18.031890869140626,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 28.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 18.191465377807618,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 28.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 18.35103988647461,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 28.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 18.51061248779297,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 29.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 18.67018699645996,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 29.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 18.829761505126954,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 29.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 18.989336013793947,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 29.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 19.148910522460939,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 30.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 19.30848503112793,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 30.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 19.468059539794923,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 30.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 19.62763214111328,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 30.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 19.787206649780275,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 31.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 19.946781158447267,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 31.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 20.106355667114259,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 31.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 20.26593017578125,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 31.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 20.425504684448243,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 32.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 20.5850772857666,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 32.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 20.744651794433595,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 32.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 20.904226303100587,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 32.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 21.063800811767579,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 33.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 21.22337532043457,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 33.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 21.382949829101564,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 33.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 21.542524337768556,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 33.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 21.702096939086915,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 34.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 21.861671447753908,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 34.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 22.0212459564209,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 34.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 22.18082046508789,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 34.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 22.340394973754884,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 35.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 22.499969482421876,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 35.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 22.659542083740236,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 35.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 22.819116592407228,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 35.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 22.97869110107422,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 36.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 23.13826560974121,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 36.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 23.297840118408204,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 36.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 23.457414627075197,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 36.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 23.616989135742189,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 37.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 23.776561737060548,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 37.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 23.93613624572754,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 37.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 24.09571075439453,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 37.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 24.255285263061525,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 38.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 24.414859771728517,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 38.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 24.574434280395509,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 38.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 24.734006881713868,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 38.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 24.89358139038086,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 39.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 25.053157806396486,
+            "noteLength": 0.0729999989271164,
+            "beatIndex": 39.25,
+            "beatLengthIndex": 0.1145833358168602
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 25.132946014404298,
+            "noteLength": 0.0729999989271164,
+            "beatIndex": 39.375,
+            "beatLengthIndex": 0.1145833358168602
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 25.212732315063478,
+            "noteLength": 0.0729999989271164,
+            "beatIndex": 39.5,
+            "beatLengthIndex": 0.1145833358168602
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 25.292518615722658,
+            "noteLength": 0.0729999989271164,
+            "beatIndex": 39.625,
+            "beatLengthIndex": 0.1145833358168602
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 25.37230682373047,
+            "noteLength": 0.0729999989271164,
+            "beatIndex": 39.75,
+            "beatLengthIndex": 0.1145833358168602
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 25.45209312438965,
+            "noteLength": 0.0729999989271164,
+            "beatIndex": 39.875,
+            "beatLengthIndex": 0.1145833358168602
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 25.691455841064454,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 40.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 25.691455841064454,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 40.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 25.851028442382814,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 40.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 25.851028442382814,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 40.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 26.010602951049806,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 40.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 26.010602951049806,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 40.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 26.32975196838379,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 41.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 26.32975196838379,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 41.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 26.648900985717775,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 41.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 26.648900985717775,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 41.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 28.24464225769043,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 44.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 28.24464225769043,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 44.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 28.404216766357423,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 44.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 28.404216766357423,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 44.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 28.563791275024415,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 44.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 28.563791275024415,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 44.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 28.8829402923584,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 45.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 28.8829402923584,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 45.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 29.20208740234375,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 45.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 29.20208740234375,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 45.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 30.79783058166504,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 48.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 30.79783058166504,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 48.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 30.95740509033203,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 48.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 30.95740509033203,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 48.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 31.11697769165039,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 48.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 31.11697769165039,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 48.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 31.436126708984376,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 49.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 31.436126708984376,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 49.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 31.75527572631836,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 49.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 31.75527572631836,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 49.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 35.904205322265628,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 56.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 35.904205322265628,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 56.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 36.06378173828125,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 56.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 36.06378173828125,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 56.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 36.22335433959961,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 56.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 36.22335433959961,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 56.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 36.542503356933597,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 57.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 36.542503356933597,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 57.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 36.86165237426758,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 57.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 36.86165237426758,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 57.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 38.457393646240237,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 60.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 38.457393646240237,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 60.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 38.61697006225586,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 60.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 38.61697006225586,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 60.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 38.77654266357422,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 60.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 38.77654266357422,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 60.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 39.0956916809082,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 61.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 39.0956916809082,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 61.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 39.41484069824219,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 61.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 39.41484069824219,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 61.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 41.010581970214847,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 64.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 41.010581970214847,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 64.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 41.1701545715332,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 64.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 41.1701545715332,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 64.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 41.32973098754883,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 64.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 41.32973098754883,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 64.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 41.64888000488281,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 65.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 41.64888000488281,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 65.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 41.9680290222168,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 65.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 41.9680290222168,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 65.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 43.40419387817383,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 68.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 43.40419387817383,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 68.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 43.56377029418945,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 68.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 43.56377029418945,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 68.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 43.72334289550781,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 68.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 43.72334289550781,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 68.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 43.88291931152344,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 68.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 43.88291931152344,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 68.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 44.202064514160159,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 69.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 44.202064514160159,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 69.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 44.36164093017578,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 69.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 44.36164093017578,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 69.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 44.52121353149414,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 69.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 44.52121353149414,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 69.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 44.680789947509769,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 70.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 44.680789947509769,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 70.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 44.840362548828128,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 70.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 44.840362548828128,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 70.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 44.99993896484375,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 70.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 44.99993896484375,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 70.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 45.15951156616211,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 70.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 45.15951156616211,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 70.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 51.86163330078125,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 81.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 52.02120590209961,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 81.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 52.180782318115237,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 81.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 52.340354919433597,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 82.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 52.49993133544922,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 82.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 52.65950393676758,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 82.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 52.81907653808594,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 82.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 53.13822555541992,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 83.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 56.170135498046878,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 88.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 56.3297119140625,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 88.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 56.48928451538086,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 88.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 56.648860931396487,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 88.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 56.808433532714847,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 89.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 56.9680061340332,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 89.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 57.12758255004883,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 89.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 57.28715515136719,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 89.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 57.44673156738281,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 90.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 57.60630416870117,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 90.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 57.7658805847168,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 90.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 57.925453186035159,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 90.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 58.085025787353519,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 91.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 58.24460220336914,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 91.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 58.4041748046875,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 91.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 58.563751220703128,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 91.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 58.723323822021487,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 92.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 58.88290023803711,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 92.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 59.04247283935547,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 92.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 59.20204544067383,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 92.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 59.36162185668945,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 93.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 59.52119445800781,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 93.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 59.68077087402344,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 93.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 59.8403434753418,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 93.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 59.999916076660159,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 94.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 60.15949249267578,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 94.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 60.31906509399414,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 94.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 60.478641510009769,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 94.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 60.638214111328128,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 95.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 60.79779052734375,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 95.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 60.95736312866211,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 95.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 61.11693572998047,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 95.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 61.276512145996097,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 96.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 61.43608474731445,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 96.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 61.59566116333008,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 96.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 61.75523376464844,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 96.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 61.91481018066406,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 97.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 62.07438278198242,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 97.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 62.23395538330078,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 97.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 62.393531799316409,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 97.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 62.553104400634769,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 98.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 62.71268081665039,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 98.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 62.87225341796875,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 98.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 63.031829833984378,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 98.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 63.191402435302737,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 99.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 63.350975036621097,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 99.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 63.51055145263672,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 99.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 63.67012405395508,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 99.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 63.8297004699707,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 100.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 63.98927307128906,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 100.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 64.14884948730469,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 100.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 64.30841827392578,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 100.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 64.4679946899414,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 101.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 64.62757110595703,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 101.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 64.78714752197266,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 101.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 64.94671630859375,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 101.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 65.10629272460938,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 102.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 65.265869140625,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 102.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 65.4254379272461,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 102.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 65.58501434326172,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 102.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 65.74459075927735,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 103.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 65.90416717529297,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 103.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 66.0637435913086,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 103.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 66.22331237792969,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 103.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 66.38288879394531,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 104.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 66.5424575805664,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 104.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 66.70204162597656,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 104.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 66.86161041259766,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 104.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 67.02118682861328,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 105.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 67.18075561523438,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 105.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 67.34033966064453,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 105.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 67.49990844726563,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 105.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 67.65948486328125,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 106.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 67.81905364990235,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 106.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 67.97863006591797,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 106.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 68.1382064819336,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 106.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 68.29778289794922,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 107.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 68.45735168457031,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 107.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 68.61692810058594,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 107.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 68.77649688720703,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 107.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 68.93608093261719,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 108.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 69.09564971923828,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 108.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 69.2552261352539,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 108.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 69.414794921875,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 108.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 69.57437133789063,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 109.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 69.73394775390625,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 109.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 69.89352416992188,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 109.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 70.05309295654297,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 109.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 70.2126693725586,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 110.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 70.37224578857422,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 110.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 70.53182220458985,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 110.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 70.69139099121094,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 110.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 70.85096740722656,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 111.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 71.01053619384766,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 111.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 71.17012023925781,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 111.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 71.3296890258789,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 111.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 71.48926544189453,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 112.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 71.64883422851563,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 112.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 71.80841064453125,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 112.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 71.96798706054688,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 112.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 72.1275634765625,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 113.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 72.2871322631836,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 113.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 72.44670867919922,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 113.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 72.60627746582031,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 113.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 72.76586151123047,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 114.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 72.92543029785156,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 114.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 73.08500671386719,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 114.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 73.24457550048828,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 114.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 73.40415954589844,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 115.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 73.56372833251953,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 115.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 73.72330474853516,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 115.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 73.88287353515625,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 115.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 74.04244995117188,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 116.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 74.2020263671875,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 116.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 74.36160278320313,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 116.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 74.52117156982422,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 116.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 74.68074798583985,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 117.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 74.84031677246094,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 117.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 74.9999008178711,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 117.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 75.15946960449219,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 117.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 75.31904602050781,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 118.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 75.4786148071289,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 118.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 75.63819885253906,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 118.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 75.79776763916016,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 118.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 75.95734405517578,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 119.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 76.11691284179688,
+            "noteLength": 0.0729999989271164,
+            "beatIndex": 119.25,
+            "beatLengthIndex": 0.1145833358168602
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 76.19670104980469,
+            "noteLength": 0.0729999989271164,
+            "beatIndex": 119.375,
+            "beatLengthIndex": 0.1145833358168602
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 76.2764892578125,
+            "noteLength": 0.0729999989271164,
+            "beatIndex": 119.5,
+            "beatLengthIndex": 0.1145833358168602
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 76.35627746582031,
+            "noteLength": 0.0729999989271164,
+            "beatIndex": 119.625,
+            "beatLengthIndex": 0.1145833358168602
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 76.43606567382813,
+            "noteLength": 0.0729999989271164,
+            "beatIndex": 119.75,
+            "beatLengthIndex": 0.1145833358168602
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 76.51585388183594,
+            "noteLength": 0.0729999989271164,
+            "beatIndex": 119.875,
+            "beatLengthIndex": 0.1145833358168602
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 76.75521087646485,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 120.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 76.75521087646485,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 120.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 76.91478729248047,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 120.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 76.91478729248047,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 120.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 77.07435607910156,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 120.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 77.07435607910156,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 120.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 77.39350891113281,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 121.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 77.39350891113281,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 121.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 77.71265411376953,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 121.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 77.71265411376953,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 121.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 79.30839538574219,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 124.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 79.30839538574219,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 124.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 79.46797943115235,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 124.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 79.46797943115235,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 124.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 79.62754821777344,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 124.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 79.62754821777344,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 124.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 79.94670104980469,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 125.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 79.94670104980469,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 125.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 80.26585388183594,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 125.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 80.26585388183594,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 125.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 81.8615951538086,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 128.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 81.8615951538086,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 128.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 82.02116394042969,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 128.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 82.02116394042969,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 128.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 82.18074035644531,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 128.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 82.18074035644531,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 128.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 82.49989318847656,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 129.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 82.49989318847656,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 129.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 82.81903839111328,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 129.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 82.81903839111328,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 129.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 86.96797180175781,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 136.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 86.96797180175781,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 136.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 87.1275405883789,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 136.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 87.1275405883789,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 136.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 87.28711700439453,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 136.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 87.28711700439453,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 136.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 87.60626220703125,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 137.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 87.60626220703125,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 137.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 87.9254150390625,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 137.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 87.9254150390625,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 137.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 89.52115631103516,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 140.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 89.52115631103516,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 140.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 89.68072509765625,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 140.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 89.68072509765625,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 140.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 89.84030151367188,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 140.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 89.84030151367188,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 140.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 90.15945434570313,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 141.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 90.15945434570313,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 141.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 90.47859954833985,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 141.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 90.47859954833985,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 141.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 92.0743408203125,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 144.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 92.0743408203125,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 144.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 92.23391723632813,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 144.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 92.23391723632813,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 144.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 92.39349365234375,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 144.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 92.39349365234375,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 144.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 92.71263885498047,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 145.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 92.71263885498047,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 145.25,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 93.03179168701172,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 145.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 93.03179168701172,
+            "noteLength": 0.5720000267028809,
+            "beatIndex": 145.75,
+            "beatLengthIndex": 0.8958333134651184
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 94.46795654296875,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 148.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 94.46795654296875,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 148.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 94.62753295898438,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 148.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 94.62753295898438,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 148.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 94.78710174560547,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 148.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 94.78710174560547,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 148.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 94.9466781616211,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 148.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 94.9466781616211,
+            "noteLength": 0.2930000126361847,
+            "beatIndex": 148.75,
+            "beatLengthIndex": 0.4583333432674408
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 95.26583099365235,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 149.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 95.26583099365235,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 149.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 95.42539978027344,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 149.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 95.42539978027344,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 149.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 95.58497619628906,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 149.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 95.58497619628906,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 149.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 95.74454498291016,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 150.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 95.74454498291016,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 150.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 95.90412139892578,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 150.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 95.90412139892578,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 150.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 96.0636978149414,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 150.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 96.0636978149414,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 150.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 96.22327423095703,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 150.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 96.22327423095703,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 150.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 102.9253921508789,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 161.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 103.08496856689453,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 161.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 103.24453735351563,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 161.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 103.40411376953125,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 162.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 7,
+            "noteOctave": 3,
+            "time": 103.56369018554688,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 162.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 103.7232666015625,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 162.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 103.8828353881836,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 162.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 104.20198059082031,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 163.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 107.23390197753906,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 168.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 107.39347076416016,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 168.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 107.55304718017578,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 168.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 107.71261596679688,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 168.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 107.8721923828125,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 169.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 108.03176879882813,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 169.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 108.19134521484375,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 169.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 108.35091400146485,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 169.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 108.51049041748047,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 170.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 108.67005920410156,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 170.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 108.82964324951172,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 170.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 108.98921203613281,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 170.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 109.14878845214844,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 171.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 109.30835723876953,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 171.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 109.46794128417969,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 171.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 109.62751007080078,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 171.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 109.7870864868164,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 172.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 109.9466552734375,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 172.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 110.10623168945313,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 172.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 110.26580810546875,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 172.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 110.42538452148438,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 173.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 110.58495330810547,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 173.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 110.7445297241211,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 173.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 110.90409851074219,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 173.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 111.06368255615235,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 174.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 111.22325134277344,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 174.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 111.38282775878906,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 174.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 111.54239654541016,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 174.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 111.70197296142578,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 175.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 111.8615493774414,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 175.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 112.02112579345703,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 175.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 112.18069458007813,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 175.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 112.34027099609375,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 176.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 112.49984741210938,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 176.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 112.659423828125,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 176.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 112.8189926147461,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 176.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 112.97856903076172,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 177.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 113.13813781738281,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 177.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 113.29772186279297,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 177.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 113.45729064941406,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 177.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 113.61686706542969,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 178.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 113.77643585205078,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 178.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 113.9360122680664,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 178.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 114.09558868408203,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 178.75,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 9,
+            "noteOctave": 3,
+            "time": 114.25516510009766,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 179.0,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 2,
+            "noteOctave": 3,
+            "time": 114.41473388671875,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 179.25,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 4,
+            "noteOctave": 3,
+            "time": 114.57431030273438,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 179.5,
+            "beatLengthIndex": 0.2291666716337204
+        },
+        {
+            "noteName": 0,
+            "noteOctave": 3,
+            "time": 114.73387908935547,
+            "noteLength": 0.1459999978542328,
+            "beatIndex": 179.75,
+            "beatLengthIndex": 0.2291666716337204
+        }
+    ]
+}

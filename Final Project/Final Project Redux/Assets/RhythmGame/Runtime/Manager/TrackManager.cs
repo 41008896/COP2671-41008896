@@ -28,18 +28,26 @@ namespace RhythmGameStarter
         public bool syncSmoothing;
 
         [Title("Events", 1)]
+        // [Help("If note pool isn't used, will be called when a note is first created.\nIf note pool is used, will be called everytime a note is reused.")]
         [CollapsedEvent] public NoteComponentEvent onNoteInit;
         [CollapsedEvent] public NoteComponentEvent onNoteTriggered;
 
         private Track[] tracks;
+
         private SongManager songManager;
+
         private Transform notesPoolParent;
+
         private List<Note> pooledNotes = new List<Note>();
-        private Dictionary<Track, int> nextNoteIndices = new Dictionary<Track, int>();
 
         public enum SyncMode
         {
             Track, IndividualNote
+        }
+
+        public void UpdateSyncSmoothing(bool smooth)
+        {
+            this.syncSmoothing = smooth;
         }
 
         private void Awake()
@@ -52,6 +60,28 @@ namespace RhythmGameStarter
 
         private MidiTrackMapping previousMidiTracksMapping;
         private NotePrefabMapping previousNotePrefabMapping;
+
+        public void OverrideMapping(MidiTrackMapping midiTracksMapping, NotePrefabMapping notePrefabMapping)
+        {
+            this.previousMidiTracksMapping = this.midiTracksMapping;
+            this.previousNotePrefabMapping = this.notePrefabMapping;
+
+            if (midiTracksMapping)
+                this.midiTracksMapping = midiTracksMapping;
+            if (notePrefabMapping)
+                this.notePrefabMapping = notePrefabMapping;
+        }
+
+        public void ResetMappingOverride()
+        {
+            if (previousMidiTracksMapping != null)
+                this.midiTracksMapping = previousMidiTracksMapping;
+            if (previousNotePrefabMapping != null)
+                this.notePrefabMapping = previousNotePrefabMapping;
+
+            previousMidiTracksMapping = null;
+            previousNotePrefabMapping = null;
+        }
 
         public void Init(SongManager songManager)
         {
@@ -77,14 +107,14 @@ namespace RhythmGameStarter
                 {
                     case SyncMode.Track:
                         var target = track.notesParent;
-                        float effectivePosition = syncMode == SyncMode.Track ?
-                                                songPosition + (songManager.isDelaying ? songManager.delay - songPosition : 0) :
-                                                songPosition;
-                        var songPositionInBeats = (effectivePosition + songManager.delay) / secPerBeat;
+                        var songPositionInBeats = (songPosition + songManager.delay) / secPerBeat;
+
                         if (syncSmoothing)
                         {
                             var syncPosY = -songPositionInBeats * beatSize + track.lineArea.transform.localPosition.y + hitOffset;
                             target.Translate(new Vector3(0, -1, 0) * (1 / secPerBeat) * beatSize * Time.deltaTime);
+                            //Smooth out the value with Time.deltaTime
+                            // print(songPosition + " vs  " + syncPosY + " vs " + target.localPosition.y + " vs smooth " + (syncPosY + target.localPosition.y) / 2);
                             target.localPosition = new Vector3(0, (syncPosY + target.localPosition.y) / 2, 0);
                         }
                         else
@@ -95,6 +125,7 @@ namespace RhythmGameStarter
                     case SyncMode.IndividualNote:
                         foreach (Note note in track.runtimeNote)
                         {
+                            //This note object probably got destroyed
                             if (!note || !note.inUse) continue;
                             if (!note.gameObject.activeSelf)
                             {
@@ -103,6 +134,7 @@ namespace RhythmGameStarter
 
                             if (syncSmoothing)
                             {
+                                //Offsetting the noteTime by 1 to prevent division by 0 error if the midi start at time = 0
                                 var originalY = ((note.noteTime + 1) / secPerBeat) * beatSize;
                                 note.transform.localPosition = Vector3.LerpUnclamped(new Vector3(0, originalY, 0), new Vector3(0, hitOffset, 0), (songPosition + 1) / (note.noteTime + 1));
                             }
@@ -116,6 +148,7 @@ namespace RhythmGameStarter
                         break;
                 }
             }
+
         }
 
         public void ClearAllTracks()
@@ -129,85 +162,6 @@ namespace RhythmGameStarter
                 else
                     track.DestoryAllNotes();
             }
-        }
-
-        private void SetUpNotePool()
-        {
-            for (int i = 0; i < tracks.Count(); i++)
-            {
-                var track = tracks[i];
-
-                if (i > midiTracksMapping.mapping.Count - 1)
-                {
-                    Debug.Log("Mapping has not enough track count!");
-                    continue;
-                }
-
-                var x = midiTracksMapping.mapping[i];
-
-                track.allNotes = songManager.currnetNotes.Where(n =>
-                {
-                    return midiTracksMapping.CompareMidiMapping(x, n);
-                });
-
-                nextNoteIndices[track] = 0;  // Initialize/reset index
-                track.RecycleAllNotes(this);
-            }
-        }
-
-        private void UpdateNoteInPool()
-        {
-            foreach (var track in tracks)
-            {
-                if (track.allNotes == null) continue;
-
-                float currentPosition = songManager.songPosition;
-                float lookAheadPosition = currentPosition + poolLookAheadTime;
-
-                var notes = track.allNotes.ToList();
-                int currentIndex = nextNoteIndices[track];
-
-                while (currentIndex < notes.Count)
-                {
-                    var note = notes[currentIndex];
-
-                    if (note.time > lookAheadPosition)
-                        break;
-
-                    if (!note.created && note.time <= lookAheadPosition)
-                    {
-                        note.created = true;
-                        var noteType = notePrefabMapping.GetNoteType(note);
-                        var newNoteObject = GetUnUsedNote(noteType);
-                        track.AttachNote(newNoteObject);
-                        InitNote(newNoteObject, note);
-                    }
-
-                    currentIndex++;
-                }
-
-                nextNoteIndices[track] = currentIndex;
-            }
-        }
-
-        private void InitNote(GameObject newNoteObject, SongItem.MidiNote note)
-        {
-            var pos = Vector3.zero;
-            var time = note.time;
-            var beatUnit = time / songManager.secPerBeat;
-            pos.y = beatUnit * beatSize + (songManager.delay / songManager.secPerBeat * beatSize);
-
-            newNoteObject.transform.localPosition = pos;
-
-            var noteScript = newNoteObject.GetComponent<Note>();
-            noteScript.songManager = songManager;
-            noteScript.InitNoteLength(note.noteLength);
-            noteScript.noteTime = note.time;
-
-            if (syncMode == SyncMode.Track)
-                newNoteObject.SetActive(true);
-
-            onNoteInit.Invoke(noteScript);
         }
 
         public void ResetNoteToPool(GameObject noteObject)
@@ -269,46 +223,74 @@ namespace RhythmGameStarter
             }
         }
 
-        public static int CalculateMaxConcurrentNotes(SongItem songItem, float beatSize, float visibleBeatsInPlayArea)
+        private void SetUpNotePool()
         {
-            if (songItem == null || songItem.notes == null || songItem.notes.Count == 0)
-                return 0;
-
-            var sortedNotes = songItem.notes.OrderBy(n => n.beatIndex).ToList();
-            int maxConcurrent = 0;
-            int currentConcurrent = 0;
-            int currentNoteIndex = 0;
-            float windowStart = sortedNotes[0].beatIndex;
-
-            while (currentNoteIndex < sortedNotes.Count)
+            for (int i = 0; i < tracks.Count(); i++)
             {
-                // Add notes entering window
-                while (currentNoteIndex < sortedNotes.Count &&
-                       sortedNotes[currentNoteIndex].beatIndex <= windowStart + visibleBeatsInPlayArea)
+                var track = tracks[i];
+
+                if (i > midiTracksMapping.mapping.Count - 1)
                 {
-                    currentConcurrent++;
-                    currentNoteIndex++;
+                    Debug.Log("Mapping has not enough track count!");
+                    continue;
                 }
 
-                // Remove notes that left window
-                for (int i = 0; i < currentNoteIndex; i++)
+                var x = midiTracksMapping.mapping[i];
+
+                track.allNotes = songManager.currnetNotes.Where(n =>
                 {
-                    if (sortedNotes[i].beatIndex < windowStart)
+                    return midiTracksMapping.CompareMidiMapping(x, n);
+                });
+
+                //We clear previous notes object
+                track.RecycleAllNotes(this);
+            }
+        }
+
+        private void UpdateNoteInPool()
+        {
+            foreach (var track in tracks)
+            {
+                if (track.allNotes == null) continue;
+
+                foreach (var note in track.allNotes)
+                {
+                    //We need to place this note ahead
+                    if (!note.created && songManager.songPosition + poolLookAheadTime >= note.time)
                     {
-                        currentConcurrent--;
+                        note.created = true;
+
+                        var noteType = notePrefabMapping.GetNoteType(note);
+                        var newNoteObject = GetUnUsedNote(noteType);
+                        track.AttachNote(newNoteObject);
+
+                        InitNote(newNoteObject, note);
                     }
                 }
-
-                maxConcurrent = Mathf.Max(maxConcurrent, currentConcurrent);
-
-                // Advance window to next note if available
-                if (currentNoteIndex < sortedNotes.Count)
-                {
-                    windowStart = sortedNotes[currentNoteIndex].beatIndex;
-                }
             }
-            Debug.Log("Max concurrent notes: " + maxConcurrent);
-            return maxConcurrent;
+        }
+
+        private void InitNote(GameObject newNoteObject, SongItem.MidiNote note)
+        {
+            var pos = Vector3.zero;
+            var time = note.time;
+            var beatUnit = time / songManager.secPerBeat;
+            pos.y = beatUnit * beatSize + (songManager.delay / songManager.secPerBeat * beatSize);
+            //The note is being positioned in the track and offset with the delay.
+
+            newNoteObject.transform.localPosition = pos;
+
+            var noteScript = newNoteObject.GetComponent<Note>();
+            noteScript.songManager = songManager;
+            noteScript.InitNoteLength(note.noteLength);
+            noteScript.noteTime = note.time;
+
+            //For the SyncMode.IndividualNote, we activate the note object later on
+            if (syncMode == SyncMode.Track)
+                newNoteObject.SetActive(true);
+
+            //Notifying the onNoteInit event
+            onNoteInit.Invoke(noteScript);
         }
 
         private void CreateAllNoteNow()
@@ -323,6 +305,7 @@ namespace RhythmGameStarter
                     return midiTracksMapping.CompareMidiMapping(x, n);
                 });
 
+                //We clear previous notes object
                 track.DestoryAllNotes();
 
                 if (track.allNotes == null) continue;

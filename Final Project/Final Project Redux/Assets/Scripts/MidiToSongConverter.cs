@@ -37,7 +37,7 @@ namespace RhythmGameStarter
 
             var songItem = ScriptableObject.CreateInstance<SongItem>();
             // Set display name
-            songItem.name = $"{midiName} ({songItem.instrumentName}) [{rootNote}]";
+            songItem.name = $"{midiName} ({instrumentName}) [{rootNote}]";
 
             songItem.bpm = (int)midiLoader.MPTK_InitialTempo;
             songItem.timeSignatureNumerator = midiLoader.MPTK_TimeSigNumerator;
@@ -78,6 +78,7 @@ namespace RhythmGameStarter
                 songItem.notes.Add(note);
             }
 
+            // Shits borked for serializing
             //// Add metadata
             //songItem.metadata = new SongItem.MetadataList();
             //songItem.metadata.values = new List<SongItem.Metadata>

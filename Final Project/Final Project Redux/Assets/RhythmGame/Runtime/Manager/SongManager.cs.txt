@@ -72,9 +72,6 @@ namespace RhythmGameStarter
         [NonSerialized] public bool isDelaying = false;
         private int timeSignatureNumerator = 4;
         private float delayStartTime;
-        private float timeStartPlay;
-        private float timePaused;
-        private float accumulatedPauseTime;
 
         private void Awake()
         {
@@ -112,11 +109,10 @@ namespace RhythmGameStarter
 
         void Update()
         {
-            //if (!songPaused && (midiFilePlayer.MPTK_IsPlaying || isDelaying))
-            if (!songPaused && (songHasStarted || isDelaying))
+            if (!songPaused && (midiFilePlayer.MPTK_IsPlaying || isDelaying))
             {
-                songPosition = (Time.realtimeSinceStartup - timeStartPlay - accumulatedPauseTime - delay) * midiFilePlayer.MPTK_Speed;
-
+                // Get current position in seconds from MIDI player
+                songPosition = (float)midiFilePlayer.MPTK_Position / 1000f;
 
                 // Update track positions and trigger progress events
                 trackManager.UpdateTrack(songPosition, secPerBeat);
@@ -142,15 +138,26 @@ namespace RhythmGameStarter
             // Only check for completion after delay is done
             if (!songPaused && !isDelaying && songHasStarted && !midiFilePlayer.MPTK_IsPlaying)
             {
-                songHasStarted = false;
                 onSongFinished.Invoke();
                 trackManager.ClearAllTracks();
-
-                StopSong();
 
                 if (looping && currentSongItem != null)
                     PlaySong(currentSongItem);
             }
+
+        //    // Handle metronome playback during delay
+        //    if (isDelaying)
+        //    {
+        //        if (Time.realtimeSinceStartup >= nextBeatTime)
+        //        {
+        //            metronomeSource.Play();
+        //            nextBeatTime += secPerBeat;
+
+        //            // End delay when time exceeds the delay threshold
+        //            if (nextBeatTime >= delay)
+        //                isDelaying = false;
+        //        }
+        //    }
         }
 
         public void PlaySong()
@@ -204,8 +211,6 @@ namespace RhythmGameStarter
             songPaused = false;
             isDelaying = true;
             onSongStartPlay.Invoke();
-            timeStartPlay = Time.realtimeSinceStartup;
-            accumulatedPauseTime = 0;
 
             StartCoroutine(PlayWithDelay());
         }
@@ -219,14 +224,13 @@ namespace RhythmGameStarter
                 yield return new WaitForSeconds(secPerBeat);
             }
             songHasStarted = true;
-            isDelaying = false;
             midiFilePlayer.MPTK_Play();
+            isDelaying = false;
         }
 
 
         public void PauseSong()
         {
-            timePaused = Time.realtimeSinceStartup;
             if (!songPaused)
             {
                 songPaused = true;
@@ -248,7 +252,6 @@ namespace RhythmGameStarter
             if (!songPaused) return;
 
             songPaused = false;
-            accumulatedPauseTime += Time.realtimeSinceStartup - timePaused;
             midiFilePlayer.MPTK_UnPause();
         }
 
