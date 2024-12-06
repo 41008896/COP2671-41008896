@@ -11,6 +11,8 @@ public class SerializableSongItem
     public SongItem.NoteName rootKey;
     public int bpm;
     public float speedModifier;
+    public int timeSignatureNumerator;
+    public int timeSignatureDenominator;
 
     // Serializable note collection
     [System.Serializable]
@@ -57,8 +59,10 @@ public class SerializableSongItem
         rootKey = song.rootKey;
         bpm = song.bpm;
         speedModifier = song.speedModifier;
+        timeSignatureNumerator = song.timeSignatureNumerator;
+        timeSignatureDenominator = song.timeSignatureDenominator;
 
-        notes = new List<MidiNoteStruct>();
+    notes = new List<MidiNoteStruct>();
         foreach (var note in song.notes)
         {
             notes.Add(new MidiNoteStruct(note));

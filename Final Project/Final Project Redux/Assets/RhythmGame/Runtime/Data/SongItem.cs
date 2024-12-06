@@ -82,6 +82,8 @@ namespace RhythmGameStarter
         public string midiReference; // Stores the MIDI file name from MPTK database
         public string instrumentName; // Stores the name of the instrument
         public NoteName rootKey; // Stores the root key for conversion
+        public int timeSignatureNumerator;
+        public int timeSignatureDenominator;
 
         // Custom Mapping Support
         public MidiTrackMapping customMidiMapping;

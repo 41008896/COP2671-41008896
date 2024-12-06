@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
+using PlasticGui.WorkspaceWindow.Locks;
 
 namespace RhythmGameStarter
 {
@@ -57,15 +58,19 @@ namespace RhythmGameStarter
         [CollapsedEvent("Triggered when song finishes or is stopped")]
         public UnityEvent onSongFinished;
 
-        #region RUNTIME_FIELD
         // Runtime state tracking
         [NonSerialized] public bool songPaused;        // Current pause state
         [NonSerialized] public bool songHasStarted;    // Indicates if a song is currently active
         [NonSerialized] public SongItem currentSongItem; // Currently playing song
         [NonSerialized] public ComboSystem comboSystem; // Reference to the combo system
         [NonSerialized] public TrackManager trackManager; // Reference to track management
-        [NonSerialized] public float delay = 0f;
-        #endregion
+
+        public AudioClip metronomeBeat;
+        private AudioSource metronomeSource;
+        [NonSerialized] public float delay;
+        public int delayInMeasures = 2;
+        private bool isDelaying = false;
+        private int timeSignatureNumerator = 4;
 
         private void Awake()
         {
@@ -80,6 +85,15 @@ namespace RhythmGameStarter
                 return;
             }
 
+            metronomeSource = gameObject.AddComponent<AudioSource>();
+            metronomeSource.clip = metronomeBeat;
+            metronomeSource.playOnAwake = false;
+            metronomeSource.volume = 1.0f; // Set volume (0.0 to 1.0)
+            metronomeSource.loop = false; // Set looping if needed
+
+            songPaused = false;
+            isDelaying = false;  // Ensure delay logic doesn't trigger on load
+            songHasStarted = false;
             midiFilePlayer.MPTK_PlayOnStart = false;
             trackManager.Init(this);
         }
@@ -92,114 +106,9 @@ namespace RhythmGameStarter
             }
         }
 
-        public void PlaySong()
-        {
-            if (defaultSong)
-                PlaySong(defaultSong);
-            else
-                Debug.LogWarning("Default song is not set!");
-        }
-
-        public void PlaySongSelected(SongItem songItem)
-        {
-            PlaySong(songItem);
-        }
-
-        public void SetDefaultSong(SongItem songItem)
-        {
-            defaultSong = songItem;
-        }
-
-        public void PlaySong(SongItem songItem)
-        {
-            Debug.Log($"SongManager: Playing song {songItem.name}");
-            currentSongItem = songItem;
-            secPerBeat = 60.0f / currentSongItem.bpm;
-
-            midiFilePlayer.MPTK_Stop();
-            midiFilePlayer.MPTK_MidiName = songItem.midiReference;
-            midiFilePlayer.MPTK_Speed = songItem.speedModifier;
-            
-            // Preload the MIDI File
-            midiFilePlayer.MPTK_Load();
-
-            currnetNotes = songItem.GetNotes();
-            if (currnetNotes == null || !currnetNotes.Any())
-            {
-                Debug.LogError($"SongManager: No notes found for song {songItem.name}.");
-                return;
-            }
-
-            trackManager.SetupForNewSong();  // Only this setup call needed
-
-            songHasStarted = true;
-            songPaused = false;
-            onSongStartPlay.Invoke();
-
-            //Start the play-pause-rewind-play routine
-            //StartCoroutine(PlayPauseRewindPlay());
-
-            midiFilePlayer.MPTK_Play();
-        }
-
-        //IEnumerator PlayPauseRewindPlay()
-        //{
-        //    Debug.Log("Starting playback to spin up...");
-        //    midiFilePlayer.MPTK_Play();
-
-        //    // Wait briefly to allow the system to initialize
-        //    yield return new WaitForSeconds(0.1f); // Adjust the delay as needed
-
-        //    Debug.Log("Pausing playback after spin-up...");
-        //    midiFilePlayer.MPTK_Pause();
-
-        //    // Wait for the system to stabilize if needed (optional)
-        //    yield return new WaitForSeconds(3f); // Add additional delay if necessary
-
-        //    // Reset playback position to the start
-        //    Debug.Log("Resetting playback position to the beginning...");
-        //    midiFilePlayer.MPTK_Position = 0f;
-
-        //    Debug.Log("Resuming playback from the beginning...");
-        //    midiFilePlayer.MPTK_Play();
-        //}
-
-        public void PauseSong()
-        {
-            if (!songPaused)
-            {
-                songPaused = true;
-                midiFilePlayer.MPTK_Pause();
-            }
-        }
-
-        public void ResumeSong()
-        {
-            if (!songHasStarted)
-            {
-                PlaySong();
-                return;
-            }
-            if (!songPaused) return;
-
-            songPaused = false;
-            midiFilePlayer.MPTK_UnPause();
-        }
-
-        public void StopSong(bool dontInvokeEvent = false)
-        {
-            midiFilePlayer.MPTK_Stop();
-            songHasStarted = false;
-
-            if (!dontInvokeEvent)
-                onSongFinished.Invoke();
-
-            trackManager.ClearAllTracks();
-        }
-
         void Update()
         {
-            if (!songPaused && songHasStarted)
+            if (!songPaused && midiFilePlayer.MPTK_IsPlaying)
             {
                 // Get current position in seconds from MIDI player
                 songPosition = (float)midiFilePlayer.MPTK_Position / 1000f;
@@ -225,16 +134,134 @@ namespace RhythmGameStarter
                 }
             }
 
-            // Check for song completion
-            if (songHasStarted && !midiFilePlayer.MPTK_IsPlaying)
+            // Only check for completion after delay is done
+            if (!songPaused && !isDelaying && songHasStarted && !midiFilePlayer.MPTK_IsPlaying)
             {
-                songHasStarted = false;
                 onSongFinished.Invoke();
                 trackManager.ClearAllTracks();
 
-                if (looping)
+                if (looping && currentSongItem != null)
                     PlaySong(currentSongItem);
             }
+
+        //    // Handle metronome playback during delay
+        //    if (isDelaying)
+        //    {
+        //        if (Time.realtimeSinceStartup >= nextBeatTime)
+        //        {
+        //            metronomeSource.Play();
+        //            nextBeatTime += secPerBeat;
+
+        //            // End delay when time exceeds the delay threshold
+        //            if (nextBeatTime >= delay)
+        //                isDelaying = false;
+        //        }
+        //    }
         }
+
+        public void PlaySong()
+        {
+            if (defaultSong)
+                PlaySong(defaultSong);
+            else
+                Debug.LogWarning("Default song is not set!");
+        }
+
+        public void PlaySongSelected(SongItem songItem)
+        {
+            PlaySong(songItem);
+        }
+
+        public void SetDefaultSong(SongItem songItem)
+        {
+            defaultSong = songItem;
+        }
+
+        public void PlaySong(SongItem songItem)
+        {
+            Debug.Log($"SongManager: Playing song {songItem.name}");
+            currentSongItem = songItem;
+            secPerBeat = 60.0f / songItem.bpm;
+            if (songItem.timeSignatureNumerator != 0)
+                timeSignatureNumerator = songItem.timeSignatureNumerator;
+            delay = delayInMeasures * timeSignatureNumerator * secPerBeat;
+            Debug.Log($"Delay time in seconds: {delay} {secPerBeat} {songItem.timeSignatureNumerator}");
+
+            midiFilePlayer.MPTK_Stop();
+            midiFilePlayer.MPTK_MidiName = songItem.midiReference;
+            midiFilePlayer.MPTK_Speed = songItem.speedModifier;
+            
+            // Preload the MIDI File
+            midiFilePlayer.MPTK_Load();
+
+            currnetNotes = songItem.GetNotes();
+            if (currnetNotes == null || !currnetNotes.Any())
+            {
+                Debug.LogError($"SongManager: No notes found for song {songItem.name}.");
+                return;
+            }
+
+            trackManager.SetupForNewSong();  // Only this setup call needed
+
+            songPaused = false;
+            isDelaying = true;
+            onSongStartPlay.Invoke();
+
+            StartCoroutine(PlayWithDelay());
+        }
+
+        private IEnumerator PlayWithDelay()
+        {
+            for (int i = 0; i < delayInMeasures * timeSignatureNumerator; i++)
+            {
+                metronomeSource.Play();
+                yield return new WaitForSeconds(secPerBeat);
+            }
+            songHasStarted = true;
+            midiFilePlayer.MPTK_Play();
+            isDelaying = false;
+        }
+
+
+        public void PauseSong()
+        {
+            if (!songPaused)
+            {
+                songPaused = true;
+                midiFilePlayer.MPTK_Pause();
+            }
+        }
+
+        public void ResumeSong()
+        {
+            if (isDelaying)
+            {
+                isDelaying = false; // Ensure delay is canceled if resuming prematurely
+            }
+            if (!midiFilePlayer.MPTK_IsPlaying)
+            {
+                PlaySong();
+                return;
+            }
+            if (!songPaused) return;
+
+            songPaused = false;
+            midiFilePlayer.MPTK_UnPause();
+        }
+
+        public void StopSong(bool dontInvokeEvent = false)
+        {
+            midiFilePlayer.MPTK_Stop();
+            isDelaying = false;
+            songPaused = false;
+            songHasStarted = false;
+
+            if (!dontInvokeEvent)
+                onSongFinished.Invoke();
+
+            trackManager.ClearAllTracks();
+        }
+    
+        
     }
 }

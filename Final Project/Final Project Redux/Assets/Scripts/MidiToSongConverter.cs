@@ -40,6 +40,8 @@ namespace RhythmGameStarter
             songItem.name = $"{midiName} ({songItem.instrumentName}) [{rootNote}]";
 
             songItem.bpm = (int)midiLoader.MPTK_InitialTempo;
+            songItem.timeSignatureNumerator = midiLoader.MPTK_TimeSigNumerator;
+            songItem.timeSignatureDenominator = midiLoader.MPTK_TimeSigDenominator;
             songItem.notes = new List<SongItem.MidiNote>();
 
             // Store MIDI reference

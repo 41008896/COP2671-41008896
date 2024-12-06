@@ -188,6 +188,7 @@ public class MidiTestCreatorRuntime : MonoBehaviour
             GUILayout.Label($"Song: {previewMidiLoad.SequenceTrackName}", labelStyle);
             GUILayout.Label($"Duration: {previewMidiLoad.MPTK_Duration:mm\\:ss}", labelStyle);
             GUILayout.Label($"Tempo: {previewMidiLoad.MPTK_InitialTempo} BPM", labelStyle);
+            GUILayout.Label($"Time Signature: {previewMidiLoad.MPTK_TimeSigNumerator} / {previewMidiLoad.MPTK_TimeSigDenominator}", labelStyle);
             GUILayout.Label($"Key Signature: {GetKeySignatureName(previewMidiLoad.MPTK_KeySigSharpsFlats, previewMidiLoad.MPTK_KeySigMajorMinor == 0 ? "Major" : "Minor")}", labelStyle);
             GUILayout.EndVertical();
             GUILayout.Space(10);
