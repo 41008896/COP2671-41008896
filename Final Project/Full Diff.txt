@@ -1,0 +1,2679 @@
+Total files with differences: 17
+Total differing lines: 861
+
+Differences:
+--- AudioBatchProcessor.cs (only in dir1) ---
+
+#if UNITY_EDITOR
+using UnityEditor;
+using UnityEngine;
+
+public class AudioBatchProcessor : EditorWindow
+{
+    [MenuItem("Tools/Batch Set WAVs to Decompressed and Accessible")]
+    static void SetDecompressOnLoadForAllWavClips()
+    {
+        string[] audioClipGUIDs = AssetDatabase.FindAssets("t:AudioClip");
+        foreach (string guid in audioClipGUIDs)
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            AudioImporter importer = (AudioImporter)AssetImporter.GetAtPath(path);
+
+            if (importer != null && path.EndsWith(".wav"))
+            {
+                // Update settings to make sure audio is PCM and fully decompressed in memory
+                AudioImporterSampleSettings settings = importer.defaultSampleSettings;
+
+                // Set to PCM to maintain uncompressed form
+                settings.compressionFormat = AudioCompressionFormat.PCM;
+
+                // DecompressOnLoad to make sure all data is available for GetData()
+                settings.loadType = AudioClipLoadType.DecompressOnLoad;
+
+                settings.sampleRateSetting = AudioSampleRateSetting.PreserveSampleRate;
+
+                importer.defaultSampleSettings = settings;
+
+                // Ensure the platform-specific sample settings are also set the same way
+                importer.SetOverrideSampleSettings("WebGL", settings);
+
+                // Force reimport to apply changes
+                AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
+            }
+        }
+
+        Debug.Log("Batch Set WAV clips to PCM and DecompressOnLoad completed.");
+    }
+}
+#endif
+
+
+--- MidiCreatorUI.cs (only in dir1) ---
+
+using UnityEngine;
+using System.Collections.Generic;
+using MidiPlayerTK;
+using RhythmGameStarter;
+using System.Linq;
+
+public class MidiTestCreatorRuntime : MonoBehaviour
+{
+    private Rect windowRect = new Rect(0, 0, Screen.width, Screen.height); // Fill screen
+    private Vector2 scrollPosition;
+    private string[] midiFiles;
+    private int selectedMidiIndex = -1;
+    private int selectedChannel = -1;
+    private int selectedKeyIndex = 0;
+    private SongItem.NoteName selectedRootNote = SongItem.NoteName.C;
+    private string authorName = "Test Author";
+    private int difficulty = 2;
+    private MidiLoad previewMidiLoad;
+    private Dictionary<int, int> channelInstruments = new Dictionary<int, int>();
+    private bool showWindow = false;
+    private GameObject songItemList;
+    private SongListHandler songListHandler;
+
+    private readonly string[] instrumentNames = {
+        "Acoustic Grand Piano", "Bright Acoustic Piano", "Electric Grand Piano", "Honky-tonk Piano",
+        "Electric Piano 1", "Electric Piano 2", "Harpsichord", "Clavinet",
+        "Celesta", "Glockenspiel", "Music Box", "Vibraphone",
+        "Marimba", "Xylophone", "Tubular Bells", "Dulcimer",
+        "Drawbar Organ", "Percussive Organ", "Rock Organ", "Church Organ",
+        "Reed Organ", "Accordion", "Harmonica", "Tango Accordion",
+        "Acoustic Guitar (nylon)", "Acoustic Guitar (steel)", "Electric Guitar (jazz)", "Electric Guitar (clean)",
+        "Electric Guitar (muted)", "Overdriven Guitar", "Distortion Guitar", "Guitar Harmonics",
+        "Acoustic Bass", "Electric Bass (finger)", "Electric Bass (pick)", "Fretless Bass",
+        "Slap Bass 1", "Slap Bass 2", "Synth Bass 1", "Synth Bass 2",
+        "Violin", "Viola", "Cello", "Contrabass",
+        "Tremolo Strings", "Pizzicato Strings", "Orchestral Harp", "Timpani",
+        "String Ensemble 1", "String Ensemble 2", "Synth Strings 1", "Synth Strings 2",
+        "Choir Aahs", "Voice Oohs", "Synth Choir", "Orchestra Hit",
+        "Trumpet", "Trombone", "Tuba", "Muted Trumpet",
+        "French Horn", "Brass Section", "Synth Brass 1", "Synth Brass 2",
+        "Soprano Sax", "Alto Sax", "Tenor Sax", "Baritone Sax",
+        "Oboe", "English Horn", "Bassoon", "Clarinet",
+        "Piccolo", "Flute", "Recorder", "Pan Flute",
+        "Blown Bottle", "Shakuhachi", "Whistle", "Ocarina",
+        "Lead 1 (square)", "Lead 2 (sawtooth)", "Lead 3 (calliope)", "Lead 4 (chiff)",
+        "Lead 5 (charang)", "Lead 6 (voice)", "Lead 7 (fifths)", "Lead 8 (bass + lead)",
+        "Pad 1 (new age)", "Pad 2 (warm)", "Pad 3 (polysynth)", "Pad 4 (choir)",
+        "Pad 5 (bowed)", "Pad 6 (metallic)", "Pad 7 (halo)", "Pad 8 (sweep)",
+        "FX 1 (rain)", "FX 2 (soundtrack)", "FX 3 (crystal)", "FX 4 (atmosphere)",
+        "FX 5 (brightness)", "FX 6 (goblins)", "FX 7 (echoes)", "FX 8 (sci-fi)",
+        "Sitar", "Banjo", "Shamisen", "Koto",
+        "Kalimba", "Bagpipe", "Fiddle", "Shanai",
+        "Tinkle Bell", "Agogo", "Steel Drums", "Woodblock",
+        "Taiko Drum", "Melodic Tom", "Synth Drum", "Reverse Cymbal",
+        "Guitar Fret Noise", "Breath Noise", "Seashore", "Bird Tweet",
+        "Telephone Ring", "Helicopter", "Applause", "Gunshot"
+    };
+
+    private GUIStyle windowStyle;
+    private GUIStyle buttonStyle;
+    private GUIStyle selectedButtonStyle;
+    private GUIStyle labelStyle;
+    private GUIStyle textFieldStyle;
+    private bool stylesInitialized;
+
+    private Texture2D darkGrayTex;
+    private Texture2D mediumGrayTex;
+    private Texture2D lightGrayTex;
+    private Texture2D activeTex;
+    private Texture2D selectedBlueTex;
+
+    private bool midiListExpanded = true;
+    private bool channelListExpanded = false;
+    private bool propertiesExpanded = false;
+
+    void Start()
+    {
+        windowRect = new Rect(Screen.width * 0.1f, Screen.height * 0.1f,
+                            Screen.width * 0.8f, Screen.height * 0.8f);
+        songItemList = GameObject.FindGameObjectWithTag("SongItemList");
+        songListHandler = songItemList?.GetComponent<SongListHandler>();
+        RefreshMidiList();
+    }
+
+
+
+    private Texture2D MakeTexture(int width, int height, Color color)
+    {
+        Color[] pixels = new Color[width * height];
+        for (int i = 0; i < pixels.Length; i++)
+            pixels[i] = color;
+        Texture2D texture = new Texture2D(width, height);
+        texture.SetPixels(pixels);
+        texture.Apply();
+        return texture;
+    }
+
+    private void InitializeStyles()
+    {
+        // Create textures
+        darkGrayTex = MakeTexture(2, 2, new Color(0.2f, 0.2f, 0.2f, 0.95f));
+        mediumGrayTex = MakeTexture(2, 2, new Color(0.3f, 0.3f, 0.3f, 1));
+        lightGrayTex = MakeTexture(2, 2, new Color(0.4f, 0.4f, 0.4f, 1));
+        activeTex = MakeTexture(2, 2, new Color(0.5f, 0.5f, 0.5f, 1));
+        selectedBlueTex = MakeTexture(2, 2, new Color(0.4f, 0.6f, 0.8f, 1));
+
+        // Window style
+        windowStyle = new GUIStyle(GUI.skin.window);
+        windowStyle.normal.background = darkGrayTex;
+        windowStyle.normal.textColor = Color.white;
+        windowStyle.fontSize = 16;
+        windowStyle.padding = new RectOffset(10, 10, 20, 10);
+
+        // Button style
+        buttonStyle = new GUIStyle(GUI.skin.button);
+        buttonStyle.normal.background = mediumGrayTex;
+        buttonStyle.normal.textColor = Color.white;
+        buttonStyle.hover.background = lightGrayTex;
+        buttonStyle.active.background = activeTex;
+        buttonStyle.margin = new RectOffset(5, 5, 5, 5);
+        buttonStyle.padding = new RectOffset(10, 10, 5, 5);
+
+        // Selected button style
+        selectedButtonStyle = new GUIStyle(buttonStyle);
+        selectedButtonStyle.normal.background = selectedBlueTex;
+        selectedButtonStyle.normal.textColor = Color.white;
+
+        // Label style
+        labelStyle = new GUIStyle(GUI.skin.label);
+        labelStyle.normal.textColor = Color.white;
+        labelStyle.fontSize = 14;
+        labelStyle.margin = new RectOffset(5, 5, 5, 5);
+
+        // Text field style
+        textFieldStyle = new GUIStyle(GUI.skin.textField);
+        textFieldStyle.normal.background = darkGrayTex;
+        textFieldStyle.normal.textColor = Color.white;
+        textFieldStyle.padding = new RectOffset(5, 5, 5, 5);
+
+        stylesInitialized = true;
+    }
+
+        void OnGUI()
+    {
+        if (!showWindow) return;
+
+        if (!stylesInitialized)
+            InitializeStyles();
+
+        // Draw background overlay
+        GUI.color = new Color(0, 0, 0, 0.8f);
+        GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), Texture2D.whiteTexture);
+        GUI.color = Color.white;
+
+        windowRect = GUI.Window(0, windowRect, DrawWindow, "MIDI Test Creator", windowStyle);
+    }
+
+    private void DrawWindow(int windowID)
+    {
+        scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+
+        GUILayout.Space(10);
+        GUILayout.Label("MIDI Song Creator", labelStyle);
+        GUILayout.Space(20);
+
+        // MIDI List Section
+        midiListExpanded = GUILayout.Toggle(midiListExpanded, "MIDI Files", GUI.skin.button);
+        if (midiListExpanded && midiFiles != null)
+        {
+            GUILayout.BeginVertical("box");
+            for (int i = 0; i < midiFiles.Length; i++)
+            {
+                if (GUILayout.Button(midiFiles[i], selectedMidiIndex == i ? selectedButtonStyle : buttonStyle))
+                {
+                    selectedMidiIndex = i;
+                    LoadPreviewMidi(midiFiles[selectedMidiIndex]);
+                    midiListExpanded = false;
+                    channelListExpanded = true;
+                }
+            }
+            GUILayout.EndVertical();
+        }
+        GUILayout.Space(10);
+
+        if (previewMidiLoad != null)
+        {
+            GUILayout.BeginVertical("box");
+            GUILayout.Label($"Song: {previewMidiLoad.SequenceTrackName}", labelStyle);
+            GUILayout.Label($"Duration: {previewMidiLoad.MPTK_Duration:mm\\:ss}", labelStyle);
+            GUILayout.Label($"Tempo: {previewMidiLoad.MPTK_InitialTempo} BPM", labelStyle);
+            GUILayout.Label($"Time Signature: {previewMidiLoad.MPTK_TimeSigNumerator} / {previewMidiLoad.MPTK_TimeSigDenominator}", labelStyle);
+            GUILayout.Label($"Key Signature: {GetKeySignatureName(previewMidiLoad.MPTK_KeySigSharpsFlats, previewMidiLoad.MPTK_KeySigMajorMinor == 0 ? "Major" : "Minor")}", labelStyle);
+            GUILayout.EndVertical();
+            GUILayout.Space(10);
+        }
+
+        GUILayout.Space(10);
+
+        // Channel List Section
+        if (previewMidiLoad != null)
+        {
+            channelListExpanded = GUILayout.Toggle(channelListExpanded, "Available Channels", GUI.skin.button);
+            if (channelListExpanded)
+            {
+                GUILayout.BeginVertical("box");
+                foreach (var channel in channelInstruments)
+                {
+                    int noteCount = GetChannelNoteCount(channel.Key);
+                    if (noteCount > 0)
+                    {
+                        if (GUILayout.Button($"Channel {channel.Key}: {GetInstrumentName(channel.Value)} ({noteCount} notes)",
+                            selectedChannel == channel.Key ? selectedButtonStyle : buttonStyle))
+                        {
+                            selectedChannel = channel.Key;
+                            channelListExpanded = false;
+                            propertiesExpanded = true;
+                        }
+                    }
+                }
+                GUILayout.EndVertical();
+            }
+        }
+
+        GUILayout.Space(10);
+
+        // Properties Section
+        if (selectedChannel != -1)
+        {
+            propertiesExpanded = GUILayout.Toggle(propertiesExpanded, "Song Properties", GUI.skin.button);
+            if (propertiesExpanded)
+            {
+                GUILayout.BeginVertical("box");
+                GUILayout.BeginHorizontal();
+                GUILayout.Label("Author:", labelStyle, GUILayout.Width(60));
+                authorName = GUILayout.TextField(authorName, textFieldStyle);
+                GUILayout.EndHorizontal();
+
+                GUILayout.Label($"Difficulty: {difficulty}", labelStyle);
+                difficulty = (int)GUILayout.HorizontalSlider(difficulty, 0, 4);
+                GUILayout.EndVertical();
+            }
+        }
+
+        GUILayout.Space(20);
+
+        if (selectedChannel != -1)
+        {
+            if (GUILayout.Button("Create Song", buttonStyle))
+                CreateSongListItem();
+        }
+
+        GUILayout.Space(20);
+
+        if (GUILayout.Button("Close", buttonStyle))
+        {
+            showWindow = false;
+            songItemList.SetActive(true);
+        }
+
+        GUILayout.EndScrollView();
+        //GUI.DragWindow(new Rect(0, 0, Screen.width, 20)); // Don't drag the window
+    }
+
+    public void ShowWindow()
+    {
+        showWindow = true;
+        songItemList.SetActive(false);
+    }
+
+    public void HideWindow()
+    {
+        showWindow = false;
+        songItemList.SetActive(true);
+    }
+
+
+    private void RefreshMidiList()
+    {
+        if (MidiPlayerGlobal.CurrentMidiSet != null && MidiPlayerGlobal.CurrentMidiSet.MidiFiles != null)
+        {
+            midiFiles = MidiPlayerGlobal.CurrentMidiSet.MidiFiles.ToArray();
+        }
+        else
+        {
+            midiFiles = new string[0];
+        }
+    }
+
+    private void LoadPreviewMidi(string midiName)
+    {
+        var loader = new MidiFileLoader();
+        loader.MPTK_MidiName = midiName;
+
+        if (loader.MPTK_Load())
+        {
+            previewMidiLoad = loader.MPTK_MidiLoaded;
+            channelInstruments.Clear();
+
+            foreach (var midiEvent in loader.MPTK_ReadMidiEvents())
+            {
+                if (midiEvent.Command == MPTKCommand.PatchChange)
+                {
+                    channelInstruments[midiEvent.Channel] = midiEvent.Value;
+                }
+            }
+        }
+    }
+
+    private int GetChannelNoteCount(int channel)
+    {
+        if (previewMidiLoad == null) return 0;
+        return previewMidiLoad.MPTK_MidiEvents.Count(evt =>
+            evt.Channel == channel &&
+            evt.Command == MPTKCommand.NoteOn &&
+            evt.Velocity > 0);
+    }
+
+    private string GetInstrumentName(int programNumber)
+    {
+        // Special case for channel 9 (drums)
+        if (programNumber == 9)
+            return "Drums";
+
+        // Standard instruments (0-127)
+        if (programNumber >= 0 && programNumber < instrumentNames.Length)
+            return instrumentNames[programNumber];
+
+        return $"Unknown Instrument ({programNumber})";
+    }
+
+    private string GetKeySignatureName(int sharpsFlats, string majorMinor)
+    {
+        string[] keyNames = {
+        "Cb", "Gb", "Db", "Ab", "Eb", "Bb", "F", "C", "G", "D", "A", "E", "B", "F#", "C#"
+    };
+        int index = sharpsFlats + 7; // 7 is the index for C
+        if (index >= 0 && index < keyNames.Length)
+        {
+            return $"{keyNames[index]} {majorMinor}";
+        }
+        return "Unknown Key";
+    }
+
+    private void CreateSongListItem()
+    {
+        if (selectedMidiIndex < 0)
+        {
+            Debug.LogWarning("No MIDI file selected.");
+            return;
+        }
+
+        string midiName = midiFiles[selectedMidiIndex];
+        string instrumentName = GetInstrumentName(channelInstruments[selectedChannel]);
+
+        // Create the SongItem
+        SongItem newSong = MidiToSongConverter.CreateSongFromMidi(
+            midiName, selectedRootNote, selectedChannel, instrumentName, difficulty);
+
+        if (newSong == null)
+        {
+            Debug.LogError("Failed to create SongItem from MIDI.");
+            return;
+        }
+        newSong.author = authorName;
+
+        // Update author and difficulty metadata  no metadatta for now
+        //if (newSong.metadata == null)
+        //    newSong.metadata = new SongItem.MetadataList();
+
+        //var difficultyMetadata = newSong.metadata.values.Find(x => x.id == "difficulties");
+        //if (difficultyMetadata == null)
+        //{
+        //    difficultyMetadata = new SongItem.Metadata
+        //    {
+        //        id = "difficulties",
+        //        stringValue = ""
+        //    };
+        //    newSong.metadata.values.Add(difficultyMetadata);
+        //}
+        //difficultyMetadata.intValue = difficulty;
+
+        // Add the SongItem to the list
+        songListHandler.songItems.values.Add(newSong);
+
+        // Refresh the UI to display the new song
+        songListHandler.RefreshUI();
+
+        Debug.Log($"Successfully added '{newSong.name}' to the Song List.");
+    }
+}
+
+
+--- PlaySFX.cs (only in dir1) ---
+
+using UnityEngine;
+
+namespace RhythmGameStarter
+{
+    public class PlaySFX : MonoBehaviour
+    {
+        [Header("Sound Effect")]
+        [SerializeField] private AudioClip soundEffect; // Clip assigned via Inspector
+
+        public void PlaySound()
+        {
+            if (soundEffect != null)
+            {
+                SoundManager.Instance.PlaySFX(soundEffect);
+            }
+            else
+            {
+                Debug.LogWarning("No sound effect assigned to PlaySFX on " + gameObject.name);
+            }
+        }
+    }
+}
+
+
+--- SerializableSongItem.cs (only in dir1) ---
+
+using RhythmGameStarter;
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class SerializableSongItem
+{
+    public string name;
+    public string author;
+    public string midiReference;
+    public SongItem.NoteName rootKey;
+    public int bpm;
+    public float speedModifier;
+    public int timeSignatureNumerator;
+    public int timeSignatureDenominator;
+    public int difficulty;
+
+    // Serializable note collection
+    [System.Serializable]
+    public struct MidiNoteStruct
+    {
+        public SongItem.NoteName noteName;
+        public int noteOctave;
+        public float time;
+        public float noteLength;
+        public float beatIndex;
+        public float beatLengthIndex;
+
+        public MidiNoteStruct(SongItem.MidiNote note)
+        {
+            noteName = note.noteName;
+            noteOctave = note.noteOctave;
+            time = note.time;
+            noteLength = note.noteLength;
+            beatIndex = note.beatIndex;
+            beatLengthIndex = note.beatLengthIndex;
+        }
+
+        public SongItem.MidiNote ToMidiNote()
+        {
+            return new SongItem.MidiNote
+            {
+                noteName = noteName,
+                noteOctave = noteOctave,
+                time = time,
+                noteLength = noteLength,
+                beatIndex = beatIndex,
+                beatLengthIndex = beatLengthIndex
+            };
+        }
+    }
+
+    public List<MidiNoteStruct> notes;
+
+    public SerializableSongItem(SongItem song)
+    {
+        name = song.name;
+        author = song.author;
+        midiReference = song.midiReference;
+        rootKey = song.rootKey;
+        bpm = song.bpm;
+        speedModifier = song.speedModifier;
+        timeSignatureNumerator = song.timeSignatureNumerator;
+        timeSignatureDenominator = song.timeSignatureDenominator;
+        difficulty = song.difficulty;
+
+        notes = new List<MidiNoteStruct>();
+        foreach (var note in song.notes)
+        {
+            notes.Add(new MidiNoteStruct(note));
+        }
+    }
+
+    public SongItem ToSongItem()
+    {
+        var song = ScriptableObject.CreateInstance<SongItem>();
+        song.name = name;
+        song.author = author;
+        song.midiReference = midiReference;
+        song.rootKey = rootKey;
+        song.bpm = bpm;
+        song.speedModifier = speedModifier;
+        song.difficulty = difficulty;
+
+        song.notes = new List<SongItem.MidiNote>();
+        foreach (var noteStruct in notes)
+        {
+            song.notes.Add(noteStruct.ToMidiNote());
+        }
+
+        return song;
+    }
+}
+
+--- MidiToSongConverter.cs (only in dir1) ---
+
+using UnityEngine;
+using MidiPlayerTK;
+using System.Collections.Generic;
+using System.Linq;
+using System;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+namespace RhythmGameStarter
+{
+    public class MidiToSongConverter
+    {
+        private const string SONG_ASSET_PATH = "Assets/Songs/";
+        public static readonly int[] PentatonicDegrees = { 0, 2, 4, 7, 9 };
+        private static MidiFileLoader midiLoader;
+        private static bool verboseDebug = false;
+
+        public static SongItem CreateSongFromMidi(string midiName, SongItem.NoteName rootNote, int selectedChannel, string instrumentName, int difficulty)
+        {
+            Debug.Log($"=== Starting MIDI Conversion Process ===");
+
+            if (midiLoader == null)
+                midiLoader = new MidiFileLoader();
+
+            midiLoader.MPTK_MidiName = midiName;
+
+            if (!midiLoader.MPTK_Load())
+            {
+                Debug.LogError($"Failed to load MIDI file: {midiName}");
+                return null;
+            }
+
+            Debug.Log($"PPQ: {midiLoader.MPTK_DeltaTicksPerQuarterNote}");
+            Debug.Log($"Initial Tempo: {midiLoader.MPTK_InitialTempo} BPM");
+
+            var songItem = ScriptableObject.CreateInstance<SongItem>();
+            // Set display name
+            songItem.name = $"{midiName} ({instrumentName}) [{rootNote}]";
+
+            songItem.bpm = (int)midiLoader.MPTK_InitialTempo;
+            songItem.timeSignatureNumerator = midiLoader.MPTK_TimeSigNumerator;
+            songItem.timeSignatureDenominator = midiLoader.MPTK_TimeSigDenominator;
+            songItem.notes = new List<SongItem.MidiNote>();
+            songItem.difficulty = difficulty;
+
+            // Store MIDI reference
+            songItem.midiReference = midiName;
+            songItem.rootKey = rootNote;
+            songItem.instrumentName = instrumentName;
+
+            var midiEvents = midiLoader.MPTK_ReadMidiEvents();
+            var channelEvents = midiEvents
+                .Where(e => e.Channel == selectedChannel && e.Command == MPTKCommand.NoteOn && e.Velocity > 0)
+                .OrderBy(e => e.Tick)
+                .ToList();
+
+            foreach (var midiEvent in channelEvents)
+            {
+                var note = new SongItem.MidiNote
+                {
+                    noteName = (SongItem.NoteName)(((int)(FindNearestPentatonicDegree((midiEvent.Value - (int)rootNote + 12) % 12) + rootNote)) % 12),
+                    noteOctave = 3,
+                    time = midiEvent.RealTime / 1000f,
+                    noteLength = midiEvent.Duration / 1000f,
+                    beatIndex = midiEvent.Tick / (float)midiLoader.MPTK_DeltaTicksPerQuarterNote,
+                    beatLengthIndex = midiEvent.Length / (float)midiLoader.MPTK_DeltaTicksPerQuarterNote
+                };
+
+                if (verboseDebug)
+                {
+                    Debug.Log($"Event: Tick={midiEvent.Tick} RealTime={midiEvent.RealTime} Length={midiEvent.Length}");
+                    Debug.Log($"Created Note: time={note.time:F3} length={note.noteLength:F3} " +
+                              $"beatIndex={note.beatIndex:F3} beatLengthIndex={note.beatLengthIndex:F3}");
+                }
+
+                songItem.notes.Add(note);
+            }
+
+            // Shits borked for serializing
+            //// Add metadata
+            //songItem.metadata = new SongItem.MetadataList();
+            //songItem.metadata.values = new List<SongItem.Metadata>
+            //{
+            //    new SongItem.Metadata
+            //    {
+            //        id = "difficulties",
+            //        intValue = 2,
+            //        stringValue = ""
+            //    }
+            //};
+
+            // Do not create the serialized object, as you cant in runtime.  Has to be the JSON.
+            //#if UNITY_EDITOR
+            //            string assetName = $"{midiName}.{songItem.instrumentName}.{rootNote}";
+            //            string assetPath = $"{SONG_ASSET_PATH}{assetName}.asset";
+            //            try
+            //            {
+            //                System.IO.Directory.CreateDirectory(SONG_ASSET_PATH);
+            //                AssetDatabase.CreateAsset(songItem, assetPath);
+            //                AssetDatabase.SaveAssets();
+            //                AssetDatabase.Refresh();
+            //            }
+            //            catch (System.Exception ex)
+            //            {
+            //                Debug.LogError($"Failed to save asset: {ex.Message}");
+            //                return null;
+            //            }
+            //#endif
+
+            // Do the diffiulty stuff
+            return songItem;
+            //return ProcessSongByDifficulty(songItem);
+        }
+
+        private static int FindNearestPentatonicDegree(int semitonesFromRoot)
+        {
+            int nearestDegree = PentatonicDegrees[0];
+            int minDistance = int.MaxValue;
+
+            if (verboseDebug)
+                Debug.Log($"Finding nearest pentatonic degree for {semitonesFromRoot} semitones:");
+
+            foreach (int degree in PentatonicDegrees)
+            {
+                int distance = Mathf.Min(
+                    Mathf.Abs(semitonesFromRoot - degree),
+                    Mathf.Abs(semitonesFromRoot - (degree + 12))
+                );
+
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestDegree = degree;
+                }
+            }
+
+            return nearestDegree;
+        }
+
+        // Difficulity processing
+        private static SongItem ProcessSongByDifficulty(SongItem song)
+        {
+            List<SongItem.MidiNote> filtered = FilterNotesByDifficulty(song.notes, song.difficulty - 1);
+            song.notes = MapNotesToLanes(filtered, song.difficulty);
+            return song;
+        }
+
+        private static List<SongItem.MidiNote> FilterNotesByDifficulty(List<SongItem.MidiNote> notes, int difficulty)
+        {
+            float toleranceWindow = 0.1f; // 10% of a beat
+            return notes.Where(note =>
+            {
+                float posInBeat = note.beatIndex % 1;
+                float distanceFromBeat = Math.Min(posInBeat, 1 - posInBeat);
+
+                return difficulty switch
+                {
+                    1 => note.beatIndex % 4 < toleranceWindow, // Only downbeats
+                    2 or 3 => distanceFromBeat < toleranceWindow, // Quarter notes
+                    _ => true // Difficulties 4,5 keep all notes
+                };
+            }).ToList();
+        }
+
+        private static List<SongItem.MidiNote> MapNotesToLanes(List<SongItem.MidiNote> notes, int difficulty)
+        {
+            if (difficulty >= 4) return notes;
+
+            var mapped = new List<SongItem.MidiNote>();
+            Dictionary<float, HashSet<int>> notesAtBeat = new Dictionary<float, HashSet<int>>();
+            System.Random rnd = new System.Random();
+
+            foreach (var note in notes)
+            {
+                if (!notesAtBeat.ContainsKey(note.beatIndex))
+                    notesAtBeat[note.beatIndex] = new HashSet<int>();
+
+                int sourceLane = (int)note.noteName % 6;
+                int targetLane;
+
+                if (difficulty <= 2)
+                    targetLane = sourceLane <= 1 ? 0 : sourceLane <= 3 ? 1 : 2;
+                else // difficulty 3
+                {
+                    if (sourceLane == 1 || sourceLane == 3)
+                        targetLane = rnd.NextDouble() < 0.67 ? (sourceLane == 1 ? 0 : 1) : (sourceLane == 1 ? 1 : 2);
+                    else
+                        targetLane = sourceLane <= 1 ? 0 : sourceLane <= 3 ? 1 : 2;
+                }
+
+                if (!notesAtBeat[note.beatIndex].Contains(targetLane))
+                {
+                    var newNote = new SongItem.MidiNote(note) { noteName = (SongItem.NoteName)targetLane };
+                    notesAtBeat[note.beatIndex].Add(targetLane);
+                    mapped.Add(newNote);
+                }
+            } // YOU ARENT ADDINT TO LANES, YOU ARE DELETING THEM.
+            return mapped;
+        }
+    }
+}
+
+--- MidiTestCreator.cs.tempremove.meta (only in dir1) ---
+
+fileFormatVersion: 2
+guid: e3c5bef6aac14534d95a27e357fc50b5
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+
+
+--- Singleton.cs (only in dir1) ---
+
+using UnityEngine;
+
+namespace RhythmGameStarter
+{
+    public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+    {
+        private static T _instance;
+        public static T Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = FindObjectOfType<T>();
+                    if (_instance == null)
+                    {
+                        GameObject singletonObject = new GameObject(typeof(T).Name);
+                        _instance = singletonObject.AddComponent<T>();
+                        DontDestroyOnLoad(singletonObject);
+                    }
+                }
+                return _instance;
+            }
+        }
+
+        protected virtual void Awake()
+        {
+            if (_instance != null && _instance != this)
+            {
+                Destroy(gameObject); // Prevent duplicates
+            }
+            else
+            {
+                _instance = this as T;
+                DontDestroyOnLoad(gameObject);
+            }
+        }
+    }
+}
+
+
+--- RhythmGame.asmdef (only in dir1) ---
+
+{
+    "name": "RhythmGame",
+    "rootNamespace": "RhythmGameStarter",
+    "references": [
+        "MidiPlayer.Run",
+        "Unity.TextMeshPro",
+        "com.bennykok.rgs.runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
+
+--- SoundManager.cs (only in dir1) ---
+
+using UnityEngine;
+
+namespace RhythmGameStarter
+{
+    public class SoundManager : MonoBehaviour
+    {
+        public static SoundManager Instance { get; private set; }
+
+        [Header("Audio Sources")]
+        [SerializeField] private AudioSource bgmSource;
+        [SerializeField] private AudioSource sfxSource;
+
+        [Header("Default Audio Clips")]
+        [SerializeField] private AudioClip defaultBGM;
+        [SerializeField] private AudioClip resultsClip;
+        [SerializeField] private AudioClip buttonClick;
+
+        [Range(0f, 1f)] public float bgmVolume = 1f;
+        [Range(0f, 1f)] public float sfxVolume = 1f;
+
+        private SongManager songManager;
+
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+
+        private void Start()
+        {
+            if (defaultBGM != null)
+            {
+                PlayBGM(defaultBGM);
+            }
+        }
+
+        private void Update()
+        {
+            bgmSource.volume = bgmVolume;
+            sfxSource.volume = sfxVolume;
+        }
+
+        public void PlayBGM(AudioClip clip)
+        {
+            if (clip == null) return;
+            bgmSource.clip = clip;
+            bgmSource.loop = true;
+            bgmSource.Play();
+        }
+
+        public void StopBGM()
+        {
+            bgmSource.Stop();
+        }
+
+        public void PlayButtonClick()
+        {
+            if (buttonClick == null) return;
+            sfxSource.PlayOneShot(buttonClick);
+        }
+
+        public void PlayResultsClip()
+        {
+            if (resultsClip == null) return;
+            bgmSource.clip = resultsClip;
+            bgmSource.loop = false;
+            bgmSource.Play();
+        }
+
+        public void PlaySFX(AudioClip clip)
+        {
+            if (clip == null) return;
+            sfxSource.PlayOneShot(clip);
+        }
+        public void StopSFX()
+        {
+            sfxSource.Stop();
+        }
+    }
+}
+
+
+--- SongManager.cs ---
+--- SongManager.cs
+
++++ SongManager.cs
+
+@@ -1,11 +1,7 @@
+
++﻿using System;
+
++using System.Collections.Generic;
+
+ using UnityEngine;
+
+-using MidiPlayerTK;
+
+-using System;
+
+ using UnityEngine.Events;
+
+-using System.Collections.Generic;
+
+-using System.Linq;
+
+-using System.Collections;
+
+-using PlasticGui.WorkspaceWindow.Locks;
+
+ 
+
+ namespace RhythmGameStarter
+
+ {
+
+@@ -13,124 +9,196 @@
+
+     [RequireComponent(typeof(TrackManager))]
+
+     public class SongManager : MonoBehaviour
+
+     {
+
+-        [Comment("Responsible for song control and MIDI playback events")]
+
+-        private MidiFilePlayer midiFilePlayer;
+
++        [Comment("Responsible for song control, handling song related events.")]
+
++        public AudioSource audioSource;
+
+ 
+
+         [Title("Properties", 0)]
+
+         [Space]
+
+-        [Tooltip("Start playing the default song when scene loads")]
+
+         public bool playOnAwake = true;
+
+-
+
+-        [Tooltip("The default song to play if none is specified")]
+
+         public SongItem defaultSong;
+
+-
+
+-        [Tooltip("If true, song will restart when finished")]
+
++        public float delay;
+
+         public bool looping;
+
+ 
+
++        [Tooltip("Automatically handle play/pause when timescale set to 0, or back to 1")]
+
++        public bool autoTimeScalePause;
+
++
+
+         [Title("Display", 0)]
+
+-        [Tooltip("Show progress as percentage instead of time")]
+
+         public bool progressAsPercentage = true;
+
+-
+
+-        [Tooltip("Invert the fill amount (1 - progress)")]
+
+         public bool inverseProgressFill = false;
+
+ 
+
+-        // Hidden properties used by track system
+
+-        [HideInInspector] public float secPerBeat;    // Duration of one beat in seconds
+
+-        [HideInInspector] public float songPosition;   // Current playback position in seconds
+
+-        [HideInInspector] public IEnumerable<SongItem.MidiNote> currnetNotes; // All notes for current song
+
++        [HideInInspector] public float secPerBeat;
+
++        [HideInInspector] public float songPosition;
+
++        [HideInInspector] public IEnumerable<SongItem.MidiNote> currnetNotes;
+
+ 
+
+         [Title("Events", 0)]
+
+-        [CollapsedEvent("Triggered every frame when song is playing, passes current time in seconds")]
+
+-        public FloatEvent onSongProgress;
+
+-
+
+-        [CollapsedEvent("Triggered every frame, passes normalized progress value [0,1] for UI fill")]
+
+-        public FloatEvent onSongProgressFill;
+
+-
+
+-        [CollapsedEvent("Triggered every frame, provides formatted time/percentage string")]
+
+-        public StringEvent onSongProgressDisplay;
+
+-
+
+-        [CollapsedEvent("Triggered when MIDI playback begins")]
+
+-        public UnityEvent onSongStart;
+
+-
+
+-        [CollapsedEvent("Triggered immediately when Play is called, before playback")]
+
+-        public UnityEvent onSongStartPlay;
+
+-
+
+-        [CollapsedEvent("Triggered when song finishes or is stopped")]
+
+-        public UnityEvent onSongFinished;
+
+-
+
+-        // Runtime state tracking
+
+-        [NonSerialized] public bool songPaused;        // Current pause state
+
+-        [NonSerialized] public bool songHasStarted;    // Indicates if a song is currently active
+
+-        [NonSerialized] public SongItem currentSongItem; // Currently playing song
+
+-        [NonSerialized] public ComboSystem comboSystem; // Reference to the combo system
+
+-        [NonSerialized] public TrackManager trackManager; // Reference to track management
+
+-
+
+-        public AudioClip metronomeBeat;
+
+-        private AudioSource metronomeSource;
+
+-        [NonSerialized] public float delay;
+
+-        public int delayInMeasures = 2;
+
+-        [NonSerialized] public bool isDelaying = false;
+
+-        private int timeSignatureNumerator = 4;
+
+-        private float delayStartTime;
+
+-        private float timeStartPlay;
+
+-        private float timePaused;
+
+-        private float accumulatedPauseTime;
+
++        [CollapsedEvent("Triggered every frame when a song progress")] public FloatEvent onSongProgress;
+
++        [CollapsedEvent("Triggered every frame when a song progress with a float between [0,1] useful for Image fill")] public FloatEvent onSongProgressFill;
+
++        [CollapsedEvent("Triggered every frame the song progress with a string variable of the progress display")] public StringEvent onSongProgressDisplay;
+
++        [CollapsedEvent("Triggered when the song play, after the delay wait time")] public UnityEvent onSongStart;
+
++        [CollapsedEvent("Triggered when the song play, before the delay wait time")] public UnityEvent onSongStartPlay;
+
++        [CollapsedEvent("Triggered when the song finished")] public UnityEvent onSongFinished;
+
++
+
++
+
++        #region RUNTIME_FIELD
+
++
+
++        [NonSerialized] public bool songPaused;
+
++        [NonSerialized] public SongItem currentSongItem;
+
++        [NonSerialized] public ComboSystem comboSystem;
+
++        [NonSerialized] public TrackManager trackManager;
+
++
+
++        private bool songHasStarted;
+
++        private bool songStartEventInvoked;
+
++        private double dspStartTime;
+
++        private double dspPausedTime;
+
++        private double accumulatedPauseTime;
+
++
+
++        #endregion
+
+ 
+
+         private void Awake()
+
+         {
+
+-            Debug.Log("SongManager: Initializing");
+
+             trackManager = GetComponent<TrackManager>();
+
+             comboSystem = GetComponent<ComboSystem>();
+
+ 
+
+-            midiFilePlayer = GameObject.FindWithTag("MidiFilePlayer")?.GetComponent<MidiFilePlayer>();
+
+-            if (midiFilePlayer == null)
+
+-            {
+
+-                Debug.LogError("SongManager: MidiFilePlayer not found in the scene!");
+
++            trackManager.Init(this);
+
++        }
+
++
+
++        private void Start()
+
++        {
+
++            if (playOnAwake && defaultSong)
+
++            {
+
++                PlaySong(defaultSong);
+
++            }
+
++        }
+
++
+
++        public void PlaySong()
+
++        {
+
++            if (defaultSong)
+
++                PlaySong(defaultSong);
+
++            else
+
++                Debug.LogWarning("Default song is not set!");
+
++        }
+
++
+
++        public void PlaySongSelected(SongItem songItem)
+
++        {
+
++            PlaySong(songItem);
+
++        }
+
++
+
++        public void SetDefaultSong(SongItem songItem)
+
++        {
+
++            defaultSong = songItem;
+
++        }
+
++
+
++        public void PlaySong(SongItem songItem, double specificStartTime = 0)
+
++        {
+
++            currentSongItem = songItem;
+
++            songPaused = false;
+
++            songHasStarted = true;
+
++            accumulatedPauseTime = 0;
+
++            dspPausedTime = 0;
+
++            songPosition = -1;
+
++
+
++            if (audioSource) audioSource.clip = songItem.clip;
+
++            if (songItem.customMidiMapping || songItem.customPrefabMapping)
+
++                trackManager.OverrideMapping(songItem.customMidiMapping, songItem.customPrefabMapping);
+
++            else
+
++                trackManager.ResetMappingOverride();
+
++
+
++            // songItem.ResetNotesState();
+
++            currnetNotes = songItem.GetNotes();
+
++            secPerBeat = 60f / songItem.bpm;
+
++
+
++            //Starting the audio play back
+
++            dspStartTime = AudioSettings.dspTime;
+
++            if (audioSource)
+
++            {
+
++                audioSource.pitch = songItem.speedModifier;
+
++
+
++                audioSource.PlayScheduled(AudioSettings.dspTime + delay);
+
++                audioSource.time = (float)specificStartTime;
+
++                dspStartTime -= specificStartTime;
+
++            }
+
++
+
++            trackManager.SetupForNewSong();
+
++
+
++            onSongStartPlay.Invoke();
+
++        }
+
++
+
++        public void PauseSong()
+
++        {
+
++            if (songPaused) return;
+
++
+
++            songPaused = true;
+
++            if (audioSource) audioSource.Pause();
+
++
+
++            dspPausedTime = AudioSettings.dspTime;
+
++        }
+
++
+
++        public void ResumeSong()
+
++        {
+
++            if (!songHasStarted)
+
++            {
+
++                PlaySong();
+
+                 return;
+
+             }
+
+-
+
+-            metronomeSource = gameObject.AddComponent<AudioSource>();
+
+-            metronomeSource.clip = metronomeBeat;
+
+-            metronomeSource.playOnAwake = false;
+
+-            metronomeSource.volume = 1.0f; // Set volume (0.0 to 1.0)
+
+-            metronomeSource.loop = false; // Set looping if needed
+
++            if (!songPaused) return;
+
+ 
+
+             songPaused = false;
+
+-            isDelaying = false;  // Ensure delay logic doesn't trigger on load
+
++            if (audioSource) audioSource.Play();
+
++
+
++            accumulatedPauseTime += AudioSettings.dspTime - dspPausedTime;
+
++        }
+
++
+
++        public void StopSong(bool dontInvokeEvent = false)
+
++        {
+
++            if (audioSource) audioSource.Stop();
+
+             songHasStarted = false;
+
+-            midiFilePlayer.MPTK_PlayOnStart = false;
+
+-            trackManager.Init(this);
+
+-        }
+
+-
+
+-        private void Start()
+
+-        {
+
+-            if (playOnAwake && defaultSong)
+
+-            {
+
+-                PlaySong(defaultSong);
+
+-            }
+
++            songStartEventInvoked = false;
+
++
+
++            if (!dontInvokeEvent)
+
++                onSongFinished.Invoke();
+
++
+
++            trackManager.ClearAllTracks();
+
+         }
+
+ 
+
+         void Update()
+
+         {
+
+-            //if (!songPaused && (midiFilePlayer.MPTK_IsPlaying || isDelaying))
+
+-            if (!songPaused && (songHasStarted || isDelaying))
+
+-            {
+
+-                songPosition = (Time.realtimeSinceStartup - timeStartPlay - accumulatedPauseTime - delay) * midiFilePlayer.MPTK_Speed;
+
+-
+
+-
+
+-                // Update track positions and trigger progress events
+
++            if (!songStartEventInvoked && songHasStarted && songPosition >= 0)
+
++            {
+
++                songStartEventInvoked = true;
+
++                onSongStart.Invoke();
+
++            }
+
++
+
++            // If we need to automatically handle play/pause according to the timescale;
+
++            if (songHasStarted && songStartEventInvoked && autoTimeScalePause)
+
++            {
+
++                if (!songPaused && Time.timeScale == 0)
+
++                {
+
++                    PauseSong();
+
++                }
+
++                else if (songPaused && Time.timeScale == 1)
+
++                {
+
++                    ResumeSong();
+
++                }
+
++            }
+
++
+
++            //Sync the tracks position with the audio
+
++            if (!songPaused && songHasStarted)
+
++            {
+
++                songPosition = (float)(AudioSettings.dspTime - dspStartTime - delay - accumulatedPauseTime) * audioSource.pitch;
+
++
+
+                 trackManager.UpdateTrack(songPosition, secPerBeat);
+
++
+
+                 onSongProgress.Invoke(songPosition);
+
+ 
+
+-                // Calculate and send normalized progress for UI
+
+-                float normalizedProgress = songPosition / (midiFilePlayer.MPTK_DurationMS / 1000f);
+
+-                onSongProgressFill.Invoke(inverseProgressFill ? 1 - normalizedProgress : normalizedProgress);
+
+-
+
+-                // Update progress display
+
++                if (inverseProgressFill)
+
++                    onSongProgressFill.Invoke(1 - (songPosition / currentSongItem.clip.length));
+
++                else
+
++                    onSongProgressFill.Invoke(songPosition / currentSongItem.clip.length);
+
++
+
+                 if (songPosition >= 0)
+
+                 {
+
+                     if (progressAsPercentage)
+
+-                        onSongProgressDisplay.Invoke(Math.Truncate(normalizedProgress * 100) + "%");
+
++                        onSongProgressDisplay.Invoke(Math.Truncate(songPosition / currentSongItem.clip.length * 100) + "%");
+
+                     else
+
+                     {
+
+                         var now = new DateTime((long)songPosition * TimeSpan.TicksPerSecond);
+
+@@ -139,134 +207,18 @@
+
+                 }
+
+             }
+
+ 
+
+-            // Only check for completion after delay is done
+
+-            if (!songPaused && !isDelaying && songHasStarted && !midiFilePlayer.MPTK_IsPlaying)
+
++            if (songHasStarted && currentSongItem.clip && songPosition >= currentSongItem.clip.length)
+
+             {
+
+                 songHasStarted = false;
+
++                songStartEventInvoked = false;
+
+                 onSongFinished.Invoke();
+
++
+
+                 trackManager.ClearAllTracks();
+
+ 
+
+-                StopSong();
+
+-
+
+-                if (looping && currentSongItem != null)
+
++                //If its looping, we replay the current song
+
++                if (looping)
+
+                     PlaySong(currentSongItem);
+
+             }
+
+         }
+
+-
+
+-        public void PlaySong()
+
+-        {
+
+-            if (defaultSong)
+
+-                PlaySong(defaultSong);
+
+-            else
+
+-                Debug.LogWarning("Default song is not set!");
+
+-        }
+
+-
+
+-        public void PlaySongSelected(SongItem songItem)
+
+-        {
+
+-            PlaySong(songItem);
+
+-        }
+
+-
+
+-        public void SetDefaultSong(SongItem songItem)
+
+-        {
+
+-            defaultSong = songItem;
+
+-        }
+
+-
+
+-        public void PlaySong(SongItem songItem)
+
+-        {
+
+-            songPaused = false;
+
+-            isDelaying = true;
+
+-            songHasStarted = false;  // Will be set true after delay
+
+-            songPosition = 0;
+
+-            Debug.Log($"SongManager: Playing song {songItem.name}");
+
+-            currentSongItem = songItem;
+
+-            secPerBeat = 60.0f / songItem.bpm;
+
+-            if (songItem.timeSignatureNumerator != 0)
+
+-                timeSignatureNumerator = songItem.timeSignatureNumerator;
+
+-            delay = delayInMeasures * timeSignatureNumerator * secPerBeat;
+
+-            Debug.Log($"Delay time in seconds: {delay} {secPerBeat} {songItem.timeSignatureNumerator}");
+
+-
+
+-            midiFilePlayer.MPTK_Stop();
+
+-            midiFilePlayer.MPTK_MidiName = songItem.midiReference;
+
+-            midiFilePlayer.MPTK_Speed = songItem.speedModifier;
+
+-            
+
+-            // Preload the MIDI File
+
+-            midiFilePlayer.MPTK_Load();
+
+-
+
+-            currnetNotes = songItem.GetNotes();
+
+-            if (currnetNotes == null || !currnetNotes.Any())
+
+-            {
+
+-                Debug.LogError($"SongManager: No notes found for song {songItem.name}.");
+
+-                return;
+
+-            }
+
+-
+
+-            trackManager.SetupForNewSong();  // Only this setup call needed
+
+-
+
+-            songPaused = false;
+
+-            isDelaying = true;
+
+-            onSongStartPlay.Invoke();
+
+-            timeStartPlay = Time.realtimeSinceStartup;
+
+-            accumulatedPauseTime = 0;
+
+-
+
+-            StartCoroutine(PlayWithDelay());
+
+-        }
+
+-
+
+-        private IEnumerator PlayWithDelay()
+
+-        {
+
+-            delayStartTime = Time.time;
+
+-            for (int i = 0; i < delayInMeasures * timeSignatureNumerator; i++)
+
+-            {
+
+-                metronomeSource.Play();
+
+-                yield return new WaitForSeconds(secPerBeat);
+
+-            }
+
+-            songHasStarted = true;
+
+-            isDelaying = false;
+
+-            midiFilePlayer.MPTK_Play();
+
+-        }
+
+-
+
+-
+
+-        public void PauseSong()
+
+-        {
+
+-            timePaused = Time.realtimeSinceStartup;
+
+-            if (!songPaused)
+
+-            {
+
+-                songPaused = true;
+
+-                midiFilePlayer.MPTK_Pause();
+
+-            }
+
+-        }
+
+-
+
+-        public void ResumeSong()
+
+-        {
+
+-            if (isDelaying)
+
+-            {
+
+-                isDelaying = false; // Ensure delay is canceled if resuming prematurely
+
+-            }
+
+-            if (!midiFilePlayer.MPTK_IsPlaying)
+
+-            {
+
+-                PlaySong();
+
+-                return;
+
+-            }
+
+-            if (!songPaused) return;
+
+-
+
+-            songPaused = false;
+
+-            accumulatedPauseTime += Time.realtimeSinceStartup - timePaused;
+
+-            midiFilePlayer.MPTK_UnPause();
+
+-        }
+
+-
+
+-        public void StopSong(bool dontInvokeEvent = false)
+
+-        {
+
+-            midiFilePlayer.MPTK_Stop();
+
+-            isDelaying = false;
+
+-            songPaused = false;
+
+-            songHasStarted = false;
+
+-            songPosition = 0;  // Reset position
+
+-            currentSongItem = null;  // Clear current song reference
+
+-
+
+-            if (!dontInvokeEvent)
+
+-                onSongFinished.Invoke();
+
+-
+
+-            trackManager.ClearAllTracks();
+
+-        }
+
+-    
+
+-        
+
+     }
+
+ }
+
+
+--- com.bennykok.rgs.runtime.asmdef ---
+--- com.bennykok.rgs.runtime.asmdef
+
++++ com.bennykok.rgs.runtime.asmdef
+
+@@ -2,8 +2,7 @@
+
+     "name": "com.bennykok.rgs.runtime",
+
+     "references": [
+
+         "GUID:6055be8ebefd69e48b49212b09b47b2f",
+
+-        "GUID:75469ad4d38634e559750d17036d5f7c",
+
+-        "MidiPlayer.Run"
+
++        "GUID:75469ad4d38634e559750d17036d5f7c"
+
+     ],
+
+     "includePlatforms": [],
+
+     "excludePlatforms": [],
+
+
+
+--- NotePrefabMapping.cs ---
+--- NotePrefabMapping.cs
+
++++ NotePrefabMapping.cs
+
+@@ -22,7 +22,7 @@
+
+         public class PrefabPoolEntry
+
+         {
+
+             public GameObject prefab;
+
+-            public int poolSize = 35;
+
++            public int poolSize = 10;
+
+         }
+
+ 
+
+         [Serializable]
+
+
+
+--- SongListHandler.cs ---
+--- SongListHandler.cs
+
++++ SongListHandler.cs
+
+@@ -1,8 +1,6 @@
+
+ ﻿using System;
+
+ using System.Collections;
+
+ using System.Collections.Generic;
+
+-using System.IO;
+
+-using System.Linq;
+
+ using TMPro;
+
+ using UnityEngine;
+
+ using UnityEngine.UI;
+
+@@ -24,21 +22,15 @@
+
+         [CollapsedEvent]
+
+         public SongItemEvent onItemSelect;
+
+ 
+
++
+
+         [Serializable] public class SongItemList : ReorderableList<SongItem> { }
+
+-
+
+-#if UNITY_EDITOR
+
+-        private readonly string savePath = Path.Combine(Application.dataPath, "Songs", "songlist.json");
+
+-#else
+
+-        private readonly string savePath = Path.Combine(Application.persistentDataPath, "songlist.json");
+
+-#endif
+
+ 
+
+         private void Start()
+
+         {
+
+-            LoadSongListFromFile();   // Load the file after ensuring it exists
+
+-            RefreshUI();              // Refresh the UI with loaded data
+
++            RefreshUI();
+
+         }
+
+ 
+
+-        public void RefreshUI()
+
++        private void RefreshUI()
+
+         {
+
+             foreach (Transform child in container)
+
+                 GameObject.Destroy(child.gameObject);
+
+@@ -64,8 +56,11 @@
+
+                 songListItem.indexLabel.text = i.ToString();
+
+                 if (songListItem.coverArtImage)
+
+                     songListItem.coverArtImage.sprite = target.coverArt;
+
+-                songListItem.difficultiesFill.fillAmount = target.difficulty / 4f; // 5 levels (0-4)
+
+-                if (target.difficulty == 0)
+
++                if (target.TryGetMetadata("difficulties", out var difficulties))
+
++                {
+
++                    songListItem.difficultiesFill.fillAmount = difficulties.intValue / 3f;
+
++                }
+
++                else
+
+                 {
+
+                     songListItem.difficultiesFill.gameObject.SetActive(false);
+
+                 }
+
+@@ -73,100 +68,8 @@
+
+                 {
+
+                     onItemSelect.Invoke(target);
+
+                 });
+
+-                // Subscribe to the delete event
+
+-                songListItem.onItemDelete.AddListener(RemoveSong);
+
+-
+
++                
+
+                 songListItem.onItemSetup.Invoke();
+
+-            }
+
+-        }
+
+-
+
+-        public void AddSong(SongItem newSong)
+
+-        {
+
+-            songItems.values.Add(newSong);
+
+-            // Refresh UI to reflect changes
+
+-            RefreshUI();
+
+-            // Save the updated list to the JSON file
+
+-            SaveSongListToFile();
+
+-        }
+
+-
+
+-        public void RemoveSong(SongItem songToRemove)
+
+-        {
+
+-            songItems.values.Remove(songToRemove);
+
+-            // Refresh UI to reflect changes
+
+-            RefreshUI();
+
+-            // Save the updated list to the JSON file
+
+-            SaveSongListToFile();
+
+-        }
+
+-
+
+-
+
+-        private void LoadSongListFromFile()
+
+-        {
+
+-            try
+
+-            {
+
+-                string directoryPath = Path.GetDirectoryName(savePath);
+
+-
+
+-                // Load all song files matching song_*.json
+
+-                var songFiles = Directory.GetFiles(directoryPath, "song_*.json");
+
+-                var loadedSongs = new List<SongItem>();
+
+-
+
+-                foreach (var filePath in songFiles)
+
+-                {
+
+-                    try
+
+-                    {
+
+-                        string json = File.ReadAllText(filePath);
+
+-                        var serializedSong = JsonUtility.FromJson<SerializableSongItem>(json);
+
+-
+
+-                        if (serializedSong != null)
+
+-                        {
+
+-                            loadedSongs.Add(serializedSong.ToSongItem());
+
+-                        }
+
+-                    }
+
+-                    catch (Exception ex)
+
+-                    {
+
+-                        Debug.LogError($"Failed to load song file {filePath}: {ex}");
+
+-                    }
+
+-                }
+
+-
+
+-                songItems.values = loadedSongs;
+
+-                Debug.Log($"Loaded {loadedSongs.Count} songs from {directoryPath}");
+
+-            }
+
+-            catch (Exception ex)
+
+-            {
+
+-                Debug.LogError($"Error loading song list: {ex}");
+
+-                songItems.values = new List<SongItem>();
+
+-            }
+
+-        }
+
+-
+
+-        private void SaveSongListToFile()
+
+-        {
+
+-            try
+
+-            {
+
+-                string directoryPath = Path.GetDirectoryName(savePath);
+
+-
+
+-                // Clear existing song files to avoid stale data
+
+-                var existingFiles = Directory.GetFiles(directoryPath, "song_*.json");
+
+-                foreach (var file in existingFiles)
+
+-                {
+
+-                    File.Delete(file);
+
+-                }
+
+-
+
+-                // Save each song individually
+
+-                for (int i = 0; i < songItems.values.Count; i++)
+
+-                {
+
+-                    var song = songItems.values[i];
+
+-                    if (song == null) continue;
+
+-
+
+-                    var serializedSong = new SerializableSongItem(song);
+
+-                    string json = JsonUtility.ToJson(serializedSong, true);
+
+-
+
+-                    string filePath = Path.Combine(directoryPath, $"song_{i}.json");
+
+-                    File.WriteAllText(filePath, json);
+
+-                    Debug.Log($"Saved song: {filePath}");
+
+-                }
+
+-            }
+
+-            catch (Exception ex)
+
+-            {
+
+-                Debug.LogError($"Error saving songs: {ex}");
+
+             }
+
+         }
+
+     }
+
+
+
+--- SongItem.cs ---
+--- SongItem.cs
+
++++ SongItem.cs
+
+@@ -2,7 +2,6 @@
+
+ using System.Collections.Generic;
+
+ using System.Linq;
+
+ using UnityEngine;
+
+-using UnityEngine.Profiling.Memory.Experimental;
+
+ using UnityEngine.Serialization;
+
+ 
+
+ namespace RhythmGameStarter
+
+@@ -72,48 +71,41 @@
+
+             NoteName.B,
+
+         };
+
+ 
+
+-        // Standard Fields
+
+         public Sprite coverArt;
+
++
+
+         public AudioClip clip;
+
++
+
+         public string author;
+
++
+
+         public int bpm;
+
++
+
+         public float speedModifier = 1;
+
+-        public int difficulty;
+
+-
+
+-        // Add new fields for MIDI reference
+
+-        public string midiReference; // Stores the MIDI file name from MPTK database
+
+-        public string instrumentName; // Stores the name of the instrument
+
+-        public NoteName rootKey; // Stores the root key for conversion
+
+-        public int timeSignatureNumerator;
+
+-        public int timeSignatureDenominator;
+
+ 
+
+         // Custom Mapping Support
+
+         public MidiTrackMapping customMidiMapping;
+
+         public NotePrefabMapping customPrefabMapping;
+
++
+
++        public MetadataList metadata;
+
++
+
++        [Serializable]
+
++        public class MetadataList : ReorderableList<Metadata> { }
+
++
+
++        [Serializable]
+
++        public class Metadata
+
++        {
+
++            public string id;
+
++            public int intValue;
+
++            public string stringValue;
+
++        }
+
++
+
++        public bool TryGetMetadata(string id, out Metadata value)
+
++        {
+
++            var v = metadata.values.Find(x => x.id == id);
+
++            value = v;
+
++            return v != null;
+
++        }
+
++
+
+         public bool useCurrentBpmMidiImport;
+
+-
+
+-
+
+-        //metadata doesnt do anything and causes problems. Commenting out for now
+
+-        //public MetadataList metadata;
+
+-
+
+-        //[Serializable]
+
+-        //public class MetadataList : ReorderableList<Metadata> { }
+
+-
+
+-        //[Serializable]
+
+-        //public class Metadata
+
+-        //{
+
+-        //    public string id;
+
+-        //    public int intValue;
+
+-        //    public string stringValue;
+
+-        //}
+
+-
+
+-        //public bool TryGetMetadata(string id, out Metadata value)
+
+-        //{
+
+-        //    var v = metadata.values.Find(x => x.id == id);
+
+-        //    value = v;
+
+-        //    return v != null;
+
+-        //}
+
+-
+
+ 
+
+         // [HideInInspector]
+
+         public List<MidiNote> notes = new List<MidiNote>();
+
+@@ -153,18 +145,7 @@
+
+                     return temp;
+
+             }
+
+ 
+
+-            //Debug notes
+
+-            Debug.Log($"GetNotes: Original notes count: {notes.Count}");
+
+-
+
+-            // Perform shallow copy
+
+-            var shallowCopiedNotes = new List<MidiNote>(notes);
+
+-
+
+-            // Debug number of notes in the shallow copy
+
+-            Debug.Log($"GetNotes: Shallow copied notes count: {shallowCopiedNotes.Count}");
+
+-
+
+-            return shallowCopiedNotes;
+
+-
+
+-            //return notes.ConvertAll(x => new MidiNote(x));
+
++            return notes.ConvertAll(x => new MidiNote(x));
+
+         }
+
+ 
+
+         [Serializable]
+
+
+
+--- View.cs ---
+--- View.cs
+
++++ View.cs
+
+@@ -1,6 +1,5 @@
+
+ ﻿using UnityEngine;
+
+ using UnityEngine.Events;
+
+-using System.Collections;
+
+ 
+
+ namespace RhythmGameStarter
+
+ {
+
+@@ -11,14 +10,12 @@
+
+         public bool resetPosition = true;
+
+         public float transitionTime = 0.5f;
+
+         public bool pauseGameWhenVisible;
+
+-
+
+         private CanvasGroup canvasGroup;
+
+ 
+
+         [Title("Events"), CollapsedEvent]
+
+         public UnityEvent onShow;
+
+         [CollapsedEvent]
+
+         public UnityEvent onHide;
+
+-        private Coroutine fadeCoroutine;
+
+ 
+
+         private void Awake()
+
+         {
+
+@@ -26,7 +23,7 @@
+
+ 
+
+             if (resetPosition)
+
+             {
+
+-                transform.localPosition = Vector3.zero;
+
++                transform.localPosition = new Vector3(0, 0, 0);
+
+             }
+
+         }
+
+ 
+
+@@ -38,16 +35,15 @@
+
+             }
+
+         }
+
+ 
+
++        private bool isHidden;
+
++
+
+         public void Show()
+
+         {
+
+-            if (fadeCoroutine != null)
+
+-            {
+
+-                StopCoroutine(fadeCoroutine);
+
+-            }
+
++            isHidden = false;
+
++            canvasGroup.alpha = 0;
+
++            gameObject.SetActive(true);
+
+ 
+
+-            gameObject.SetActive(true);
+
+             onShow.Invoke();
+
+-            fadeCoroutine = StartCoroutine(FadeIn());
+
+ 
+
+             if (pauseGameWhenVisible)
+
+             {
+
+@@ -57,13 +53,9 @@
+
+ 
+
+         public void Hide()
+
+         {
+
+-            if (fadeCoroutine != null)
+
+-            {
+
+-                StopCoroutine(fadeCoroutine);
+
+-            }
+
+-
+
++            isHidden = true;
+
++            
+
+             onHide.Invoke();
+
+-            fadeCoroutine = StartCoroutine(FadeOut());
+
+ 
+
+             if (pauseGameWhenVisible)
+
+             {
+
+@@ -73,36 +65,19 @@
+
+ 
+
+         public void InstantHide()
+
+         {
+
+-            if (fadeCoroutine != null)
+
+-            {
+
+-                StopCoroutine(fadeCoroutine);
+
+-            }
+
+-
+
++            Hide();
+
+             canvasGroup.alpha = 0;
+
+             gameObject.SetActive(false);
+
+         }
+
+ 
+
+-        private IEnumerator FadeIn()
+
++        private void Update()
+
+         {
+
+-            while (canvasGroup.alpha < 1)
+
++            canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, isHidden ? 0 : 1, Time.unscaledDeltaTime / transitionTime);
+
++
+
++            if (canvasGroup.alpha == 0 && isHidden)
+
+             {
+
+-                canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, 1, Time.unscaledDeltaTime / transitionTime);
+
+-                yield return null;
+
++                gameObject.SetActive(false);
+
+             }
+
+-
+
+-            fadeCoroutine = null; // Clear the reference when done
+
+-        }
+
+-
+
+-        private IEnumerator FadeOut()
+
+-        {
+
+-            while (canvasGroup.alpha > 0)
+
+-            {
+
+-                canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, 0, Time.unscaledDeltaTime / transitionTime);
+
+-                yield return null;
+
+-            }
+
+-
+
+-            gameObject.SetActive(false); // Deactivate when fully hidden
+
+-            fadeCoroutine = null; // Clear the reference when done
+
+         }
+
+     }
+
+-}
+
++}
+
+
+--- TrackManager.cs ---
+--- TrackManager.cs
+
++++ TrackManager.cs
+
+@@ -108,7 +108,6 @@
+
+                     case SyncMode.Track:
+
+                         var target = track.notesParent;
+
+                         var songPositionInBeats = (songPosition + songManager.delay) / secPerBeat;
+
+-
+
+                         if (syncSmoothing)
+
+                         {
+
+                             var syncPosY = -songPositionInBeats * beatSize + track.lineArea.transform.localPosition.y + hitOffset;
+
+
+
+--- SongListItem.cs ---
+--- SongListItem.cs
+
++++ SongListItem.cs
+
+@@ -16,17 +16,7 @@
+
+         public Button button;
+
+         public Image difficultiesFill;
+
+         public Image coverArtImage;
+
+-        [Tooltip("Button to trigger item removal")]
+
+-        public Button removeButton; // Assigned in the editor
+
+         [CollapsedEvent]
+
+         public UnityEvent onItemSetup;
+
+-        [CollapsedEvent]
+
+-        [Tooltip("Triggered when the remove button is clicked")]
+
+-        public UnityEvent<SongItem> onItemDelete; // Event triggered for removal
+
+-
+
+-        public void TriggerDeleteEvent()
+
+-        {
+
+-            onItemDelete?.Invoke(targetSongItem); // Wrapper method to call the UnityEvent
+
+-        }
+
+     }
+
+ }
+

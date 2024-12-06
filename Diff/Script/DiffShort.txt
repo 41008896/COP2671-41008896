@@ -1,0 +1,20 @@
+Total differing files: 17
+Total differing lines: 1761
+
+File SoundManager.cs is only in dir1. Line count: 86
+File PlaySFX.cs is only in dir1. Line count: 22
+File MidiCreatorUI.cs is only in dir1. Line count: 390
+File AudioBatchProcessor.cs is only in dir1. Line count: 42
+File SerializableSongItem.cs is only in dir1. Line count: 93
+File MidiTestCreator.cs.tempremove.meta is only in dir1. Line count: 7
+File MidiToSongConverter.cs is only in dir1. Line count: 203
+File Singleton.cs is only in dir1. Line count: 39
+File RhythmGame.asmdef is only in dir1. Line count: 18
+File NotePrefabMapping.cs is different. Line count of differences: 11
+File SongManager.cs is different. Line count of differences: 437
+File SongListHandler.cs is different. Line count of differences: 152
+File SongListItem.cs is different. Line count of differences: 20
+File View.cs is different. Line count of differences: 115
+File com.bennykok.rgs.runtime.asmdef is different. Line count of differences: 12
+File TrackManager.cs is different. Line count of differences: 10
+File SongItem.cs is different. Line count of differences: 104
