@@ -236,7 +236,7 @@ public class MidiTestCreatorRuntime : MonoBehaviour
                 GUILayout.EndHorizontal();
 
                 GUILayout.Label($"Difficulty: {difficulty}", labelStyle);
-                difficulty = (int)GUILayout.HorizontalSlider(difficulty, 1, 5);
+                difficulty = (int)GUILayout.HorizontalSlider(difficulty, 0, 4);
                 GUILayout.EndVertical();
             }
         }
@@ -354,30 +354,30 @@ public class MidiTestCreatorRuntime : MonoBehaviour
 
         // Create the SongItem
         SongItem newSong = MidiToSongConverter.CreateSongFromMidi(
-            midiName, selectedRootNote, selectedChannel, instrumentName);
+            midiName, selectedRootNote, selectedChannel, instrumentName, difficulty);
 
         if (newSong == null)
         {
             Debug.LogError("Failed to create SongItem from MIDI.");
             return;
         }
-
-        // Update author and difficulty metadata
         newSong.author = authorName;
-        if (newSong.metadata == null)
-            newSong.metadata = new SongItem.MetadataList();
 
-        var difficultyMetadata = newSong.metadata.values.Find(x => x.id == "difficulties");
-        if (difficultyMetadata == null)
-        {
-            difficultyMetadata = new SongItem.Metadata
-            {
-                id = "difficulties",
-                stringValue = ""
-            };
-            newSong.metadata.values.Add(difficultyMetadata);
-        }
-        difficultyMetadata.intValue = difficulty;
+        // Update author and difficulty metadata  no metadatta for now
+        //if (newSong.metadata == null)
+        //    newSong.metadata = new SongItem.MetadataList();
+
+        //var difficultyMetadata = newSong.metadata.values.Find(x => x.id == "difficulties");
+        //if (difficultyMetadata == null)
+        //{
+        //    difficultyMetadata = new SongItem.Metadata
+        //    {
+        //        id = "difficulties",
+        //        stringValue = ""
+        //    };
+        //    newSong.metadata.values.Add(difficultyMetadata);
+        //}
+        //difficultyMetadata.intValue = difficulty;
 
         // Add the SongItem to the list
         songListHandler.songItems.values.Add(newSong);

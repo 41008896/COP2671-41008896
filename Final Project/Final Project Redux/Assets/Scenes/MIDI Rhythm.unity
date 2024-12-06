@@ -596,6 +596,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1766181131}
+        m_TargetAssemblyTypeName: RhythmGameStarter.SoundManager, com.bennykok.rgs.runtime
+        m_MethodName: PlayButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &222687415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1805,6 +1817,41 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1041969461}
     m_Modifications:
+    - target: {fileID: 317860471681464175, guid: eada8e6f6442bc44780d88f5493d32f6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 317860471681464175, guid: eada8e6f6442bc44780d88f5493d32f6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 317860471681464175, guid: eada8e6f6442bc44780d88f5493d32f6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1766181131}
+    - target: {fileID: 317860471681464175, guid: eada8e6f6442bc44780d88f5493d32f6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 317860471681464175, guid: eada8e6f6442bc44780d88f5493d32f6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlayButtonClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 317860471681464175, guid: eada8e6f6442bc44780d88f5493d32f6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: RhythmGameStarter.SoundManager, com.bennykok.rgs.runtime
+      objectReference: {fileID: 0}
+    - target: {fileID: 317860471681464175, guid: eada8e6f6442bc44780d88f5493d32f6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1511967932487764148, guid: eada8e6f6442bc44780d88f5493d32f6,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1814,6 +1861,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6557842716593804063, guid: eada8e6f6442bc44780d88f5493d32f6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6557842716593804063, guid: eada8e6f6442bc44780d88f5493d32f6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6557842716593804063, guid: eada8e6f6442bc44780d88f5493d32f6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1766181131}
+    - target: {fileID: 6557842716593804063, guid: eada8e6f6442bc44780d88f5493d32f6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6557842716593804063, guid: eada8e6f6442bc44780d88f5493d32f6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayButtonClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6557842716593804063, guid: eada8e6f6442bc44780d88f5493d32f6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: RhythmGameStarter.SoundManager, com.bennykok.rgs.runtime
+      objectReference: {fileID: 0}
+    - target: {fileID: 6557842716593804063, guid: eada8e6f6442bc44780d88f5493d32f6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6557842716593804256, guid: eada8e6f6442bc44780d88f5493d32f6,
         type: 3}
@@ -2069,7 +2151,6 @@ RectTransform:
   - {fileID: 397647558}
   - {fileID: 3384717}
   - {fileID: 1300895004}
-  - {fileID: 1766181128}
   m_Father: {fileID: 724064904}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2215,6 +2296,30 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1766181131}
+        m_TargetAssemblyTypeName: RhythmGameStarter.SoundManager, com.bennykok.rgs.runtime
+        m_MethodName: PlayButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1766181131}
+        m_TargetAssemblyTypeName: RhythmGameStarter.SoundManager, com.bennykok.rgs.runtime
+        m_MethodName: PlayBGM
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3557,6 +3662,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1766181131}
+        m_TargetAssemblyTypeName: RhythmGameStarter.SoundManager, com.bennykok.rgs.runtime
+        m_MethodName: PlayButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1014461610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4031,6 +4148,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1717274369}
         m_TargetAssemblyTypeName: 
         m_MethodName: Show
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1766181131}
+        m_TargetAssemblyTypeName: RhythmGameStarter.SoundManager, com.bennykok.rgs.runtime
+        m_MethodName: PlayButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5494,6 +5623,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: 
         m_MethodName: StopSong
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1766181131}
+        m_TargetAssemblyTypeName: RhythmGameStarter.SoundManager, com.bennykok.rgs.runtime
+        m_MethodName: PlayButtonClick
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7305,16 +7446,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1766181127}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.018650865, y: 0.018650865, z: 0.018650865}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 675447685}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 53.616817}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!82 &1766181129
@@ -7524,6 +7665,8 @@ MonoBehaviour:
   bgmSource: {fileID: 1766181130}
   sfxSource: {fileID: 1766181129}
   defaultBGM: {fileID: 8300000, guid: 1ff51cf62559ac547af6522724f2a600, type: 3}
+  resultsClip: {fileID: 8300000, guid: 5d26a9f839f613841ba953d2d093680f, type: 3}
+  buttonClick: {fileID: 8300000, guid: c75fa40701971e74da7e2d9095fc7a63, type: 3}
   bgmVolume: 1
   sfxVolume: 1
 --- !u!1 &1777797434 stripped
@@ -7706,6 +7849,18 @@ MonoBehaviour:
       - m_Target: {fileID: 3384718}
         m_TargetAssemblyTypeName: 
         m_MethodName: Show
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1766181131}
+        m_TargetAssemblyTypeName: RhythmGameStarter.SoundManager, com.bennykok.rgs.runtime
+        m_MethodName: PlayButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8496,6 +8651,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 502088009115265191, guid: fe644e17ab53a314f926aa81d877b247,
+        type: 3}
+      propertyPath: m_TagString
+      value: RhythmCore
+      objectReference: {fileID: 0}
     - target: {fileID: 604525455156381266, guid: fe644e17ab53a314f926aa81d877b247,
         type: 3}
       propertyPath: m_LocalScale.y
@@ -8927,7 +9087,7 @@ PrefabInstance:
     - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
         type: 3}
       propertyPath: onSongFinished.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
         type: 3}
@@ -8981,6 +9141,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
         type: 3}
+      propertyPath: onSongFinished.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
+        type: 3}
+      propertyPath: onSongFinished.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
+        type: 3}
       propertyPath: onSongProgress.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
@@ -9014,6 +9184,16 @@ PrefabInstance:
       propertyPath: onSongFinished.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 363785374}
+    - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
+        type: 3}
+      propertyPath: onSongFinished.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 363785374}
+    - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
+        type: 3}
+      propertyPath: onSongFinished.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 1766181131}
     - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
         type: 3}
       propertyPath: onSongStart.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -9061,6 +9241,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
         type: 3}
+      propertyPath: onSongFinished.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
+        type: 3}
+      propertyPath: onSongFinished.m_PersistentCalls.m_Calls.Array.data[4].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
+        type: 3}
       propertyPath: onSongProgress.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -9088,6 +9278,16 @@ PrefabInstance:
         type: 3}
       propertyPath: onSongFinished.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: InstantHide
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
+        type: 3}
+      propertyPath: onSongFinished.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: InstantHide
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
+        type: 3}
+      propertyPath: onSongFinished.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
+      value: PlayResultsClip
       objectReference: {fileID: 0}
     - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
         type: 3}
@@ -9133,6 +9333,16 @@ PrefabInstance:
         type: 3}
       propertyPath: onSongStart.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
+        type: 3}
+      propertyPath: onSongFinished.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
+        type: 3}
+      propertyPath: onSongFinished.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
+      value: RhythmGameStarter.SoundManager, com.bennykok.rgs.runtime
       objectReference: {fileID: 0}
     - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
         type: 3}
@@ -9182,6 +9392,16 @@ PrefabInstance:
     - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
         type: 3}
       propertyPath: onSongFinished.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
+        type: 3}
+      propertyPath: onSongFinished.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
+        type: 3}
+      propertyPath: onSongFinished.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6570265792833841976, guid: fe644e17ab53a314f926aa81d877b247,
@@ -9385,6 +9605,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1270975604}
   - {fileID: 2098948855}
+  - {fileID: 1766181128}
   - {fileID: 10297848}
   - {fileID: 2113299874}
   - {fileID: 664834323}

@@ -77,7 +77,10 @@ namespace RhythmGameStarter
                 {
                     case SyncMode.Track:
                         var target = track.notesParent;
-                        var songPositionInBeats = (songPosition + songManager.delay) / secPerBeat;
+                        float effectivePosition = syncMode == SyncMode.Track ?
+                                                songPosition + (songManager.isDelaying ? songManager.delay - songPosition : 0) :
+                                                songPosition;
+                        var songPositionInBeats = (effectivePosition + songManager.delay) / secPerBeat;
                         if (syncSmoothing)
                         {
                             var syncPosY = -songPositionInBeats * beatSize + track.lineArea.transform.localPosition.y + hitOffset;

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Profiling.Memory.Experimental;
 using UnityEngine.Serialization;
 
 namespace RhythmGameStarter
@@ -77,6 +78,7 @@ namespace RhythmGameStarter
         public string author;
         public int bpm;
         public float speedModifier = 1;
+        public int difficulty;
 
         // Add new fields for MIDI reference
         public string midiReference; // Stores the MIDI file name from MPTK database
@@ -88,28 +90,30 @@ namespace RhythmGameStarter
         // Custom Mapping Support
         public MidiTrackMapping customMidiMapping;
         public NotePrefabMapping customPrefabMapping;
-
-        public MetadataList metadata;
-
-        [Serializable]
-        public class MetadataList : ReorderableList<Metadata> { }
-
-        [Serializable]
-        public class Metadata
-        {
-            public string id;
-            public int intValue;
-            public string stringValue;
-        }
-
-        public bool TryGetMetadata(string id, out Metadata value)
-        {
-            var v = metadata.values.Find(x => x.id == id);
-            value = v;
-            return v != null;
-        }
-
         public bool useCurrentBpmMidiImport;
+
+
+        //metadata doesnt do anything and causes problems. Commenting out for now
+        //public MetadataList metadata;
+
+        //[Serializable]
+        //public class MetadataList : ReorderableList<Metadata> { }
+
+        //[Serializable]
+        //public class Metadata
+        //{
+        //    public string id;
+        //    public int intValue;
+        //    public string stringValue;
+        //}
+
+        //public bool TryGetMetadata(string id, out Metadata value)
+        //{
+        //    var v = metadata.values.Find(x => x.id == id);
+        //    value = v;
+        //    return v != null;
+        //}
+
 
         // [HideInInspector]
         public List<MidiNote> notes = new List<MidiNote>();

@@ -69,8 +69,9 @@ namespace RhythmGameStarter
         private AudioSource metronomeSource;
         [NonSerialized] public float delay;
         public int delayInMeasures = 2;
-        private bool isDelaying = false;
+        [NonSerialized] public bool isDelaying = false;
         private int timeSignatureNumerator = 4;
+        private float delayStartTime;
 
         private void Awake()
         {
@@ -108,7 +109,7 @@ namespace RhythmGameStarter
 
         void Update()
         {
-            if (!songPaused && midiFilePlayer.MPTK_IsPlaying)
+            if (!songPaused && (midiFilePlayer.MPTK_IsPlaying || isDelaying))
             {
                 // Get current position in seconds from MIDI player
                 songPosition = (float)midiFilePlayer.MPTK_Position / 1000f;
@@ -179,6 +180,10 @@ namespace RhythmGameStarter
 
         public void PlaySong(SongItem songItem)
         {
+            songPaused = false;
+            isDelaying = true;
+            songHasStarted = false;  // Will be set true after delay
+            songPosition = 0;
             Debug.Log($"SongManager: Playing song {songItem.name}");
             currentSongItem = songItem;
             secPerBeat = 60.0f / songItem.bpm;
@@ -212,6 +217,7 @@ namespace RhythmGameStarter
 
         private IEnumerator PlayWithDelay()
         {
+            delayStartTime = Time.time;
             for (int i = 0; i < delayInMeasures * timeSignatureNumerator; i++)
             {
                 metronomeSource.Play();
@@ -255,6 +261,8 @@ namespace RhythmGameStarter
             isDelaying = false;
             songPaused = false;
             songHasStarted = false;
+            songPosition = 0;  // Reset position
+            currentSongItem = null;  // Clear current song reference
 
             if (!dontInvokeEvent)
                 onSongFinished.Invoke();

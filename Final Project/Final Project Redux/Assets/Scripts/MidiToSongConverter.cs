@@ -17,7 +17,7 @@ namespace RhythmGameStarter
         private static MidiFileLoader midiLoader;
         private static bool verboseDebug = false;
 
-        public static SongItem CreateSongFromMidi(string midiName, SongItem.NoteName rootNote, int selectedChannel, string instrumentName)
+        public static SongItem CreateSongFromMidi(string midiName, SongItem.NoteName rootNote, int selectedChannel, string instrumentName, int difficulty)
         {
             Debug.Log($"=== Starting MIDI Conversion Process ===");
 
@@ -43,6 +43,7 @@ namespace RhythmGameStarter
             songItem.timeSignatureNumerator = midiLoader.MPTK_TimeSigNumerator;
             songItem.timeSignatureDenominator = midiLoader.MPTK_TimeSigDenominator;
             songItem.notes = new List<SongItem.MidiNote>();
+            songItem.difficulty = difficulty;
 
             // Store MIDI reference
             songItem.midiReference = midiName;
@@ -77,17 +78,17 @@ namespace RhythmGameStarter
                 songItem.notes.Add(note);
             }
 
-            // Add metadata
-            songItem.metadata = new SongItem.MetadataList();
-            songItem.metadata.values = new List<SongItem.Metadata>
-            {
-                new SongItem.Metadata
-                {
-                    id = "difficulties",
-                    intValue = 2,
-                    stringValue = ""
-                }
-            };
+            //// Add metadata
+            //songItem.metadata = new SongItem.MetadataList();
+            //songItem.metadata.values = new List<SongItem.Metadata>
+            //{
+            //    new SongItem.Metadata
+            //    {
+            //        id = "difficulties",
+            //        intValue = 2,
+            //        stringValue = ""
+            //    }
+            //};
 
             // Do not create the serialized object, as you cant in runtime.  Has to be the JSON.
             //#if UNITY_EDITOR
@@ -140,8 +141,8 @@ namespace RhythmGameStarter
         // Difficulity processing
         private static SongItem ProcessSongByDifficulty(SongItem song)
         {
-            List<SongItem.MidiNote> filtered = FilterNotesByDifficulty(song.notes, song.metadata.values.Find(x => x.id == "difficulties").intValue - 1);
-            song.notes = MapNotesToLanes(filtered, song.metadata.values.Find(x => x.id == "difficulties").intValue);
+            List<SongItem.MidiNote> filtered = FilterNotesByDifficulty(song.notes, song.difficulty - 1);
+            song.notes = MapNotesToLanes(filtered, song.difficulty);
             return song;
         }
 
