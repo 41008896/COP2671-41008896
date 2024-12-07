@@ -44,3 +44,10 @@ File View.cs is different. Line count of differences: 115
 File com.bennykok.rgs.runtime.asmdef is different. Line count of differences: 12
 File TrackManager.cs is different. Line count of differences: 10
 File SongItem.cs is different. Line count of differences: 104
+
+Note totals for full play, but it probably should reset on new song
+Difficulty is disabled but implemented, it just has bad results
+Wanted to put metronome instead of countdown time on resume, but it was already an insane headache getting it to work for the start
+Back to start from How To Play menu goes to SongList menu?
+Something with state on new song unless its the notepool it only seems to work on the first playthrough if you exit from the results screen, but works if you exit from the pause screen?
+Serialized json for songlist only works on remove and not add?
